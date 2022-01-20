@@ -4,5 +4,5 @@ block content
   form(method="POST")
     input(name="title",type="text",required,value=video.title)
     input(name="content",type="text",required,value=video.content)
-    input(name="hashtags",type="text",required,value=video.hashtags.join())
+    input(name="hashtags",type="text",required,value=newHashtags.join())
     input(type="submit",value="Edit Video")

@@ -35,28 +35,31 @@ export const postUploadVideo = async (req, res) => {
 export const getEditVideo = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id);
+  const newHashtags = video.hashtags.map((hashtag) => hashtag.substr(1).trim());
   if (!video) {
     return res.status(400).redirect(`/videos/${id}`);
   }
-  return res.render("videos/edit-video", { pageTitle: "Edit Video", video });
+  return res.render("videos/edit-video", {
+    pageTitle: "Edit Video",
+    video,
+    newHashtags,
+  });
 };
 
 export const postEditVideo = async (req, res) => {
   const { id } = req.params;
   const { title, content, hashtags } = req.body;
-  const video = await Video.findByIdAndUpdate(id, {
+  await Video.findByIdAndUpdate(id, {
     title,
     content,
     hashtags: Video.formatHashtags(hashtags),
   });
-  if (!video) {
-    console.log("Not Found");
-    return res.status(400).redirect("/");
-  }
-  video.save();
+  const video = await Video.findById(id);
   return res.render("videos/watch", { pageTitle: video.title, video });
 };
 
-export const deleteVideo = (req, res) => {
-  res.send("Delete Video");
+export const deleteVideo = async (req, res) => {
+  const { id } = req.params;
+  await Video.findByIdAndDelete(id);
+  return res.redirect("/");
 };
