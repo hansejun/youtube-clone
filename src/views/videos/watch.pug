@@ -1,0 +1,9 @@
+extends ../base 
+
+block content 
+  div
+    p=video.content
+    each hashtag in video.hashtags
+      span #{hashtag}
+  hr
+  a(href=`/videos/${video._id}/edit`) Edit Video &rarr;

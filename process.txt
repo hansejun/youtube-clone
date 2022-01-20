@@ -1,4 +1,13 @@
-1. git init / git remote add orgin [ 복사한 URL ]
+[v] Video의 hashtags (,)로 나누어 배열 만들기
+[v] Watch template / controller / router 생성
+[ ] edit video 템플릿 생성 
+[ ] edit controller 정의
+[ ] videoDelete controller 정의 
 
-2. babel core / babel preset / babel node / nodemon 
-
+[ ] User 모델 생성
+[ ] join pug 생성
+[ ] join controller 정의. 동일한 id / email이 User model에 있는지 확인 
+[ ] User의 password bcrypt로 암호화
+[ ] login pug 생성
+[ ] login controller 정의 , password를 bcryt.compare를 통해서 암호화한 패스워드와 동일한지 확인 
+[ ] login controller에서 id / password 체크

@@ -5,12 +5,17 @@ export const home = async (req, res) => {
   return res.render("home", { pageTitle: "Home", videos });
 };
 
-export const watch = (req, res) => {
-  res.send("Watch Page");
+export const watch = async (req, res) => {
+  const { id } = req.params;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.status(400).redirect("/");
+  }
+  return res.render("videos/watch", { pageTitle: video.title, video });
 };
 
 export const getUploadVideo = (req, res) => {
-  return res.render("upload", { pageTitle: "Upload" });
+  return res.render("videos/upload", { pageTitle: "Upload" });
 };
 
 export const postUploadVideo = async (req, res) => {
@@ -19,7 +24,7 @@ export const postUploadVideo = async (req, res) => {
     const newVideo = await Video.create({
       title,
       content,
-      hashtags,
+      hashtags: Video.formatHashtags(hashtags),
     });
     return res.redirect("/");
   } catch (e) {
@@ -27,12 +32,29 @@ export const postUploadVideo = async (req, res) => {
   }
 };
 
-export const getEditVideo = (req, res) => {
-  res.send("Edit Video");
+export const getEditVideo = async (req, res) => {
+  const { id } = req.params;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.status(400).redirect(`/videos/${id}`);
+  }
+  return res.render("videos/edit-video", { pageTitle: "Edit Video", video });
 };
 
-export const postEditVideo = (req, res) => {
-  res.send("Post Edit Video");
+export const postEditVideo = async (req, res) => {
+  const { id } = req.params;
+  const { title, content, hashtags } = req.body;
+  const video = await Video.findByIdAndUpdate(id, {
+    title,
+    content,
+    hashtags: Video.formatHashtags(hashtags),
+  });
+  if (!video) {
+    console.log("Not Found");
+    return res.status(400).redirect("/");
+  }
+  video.save();
+  return res.render("videos/watch", { pageTitle: video.title, video });
 };
 
 export const deleteVideo = (req, res) => {
