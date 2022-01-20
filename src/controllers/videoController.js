@@ -1,3 +1,5 @@
+import Video from "../models/Video";
+
 export const home = (req, res) => {
   return res.render("home", { pageTitle: "Home" });
 };
@@ -7,11 +9,21 @@ export const watch = (req, res) => {
 };
 
 export const getUploadVideo = (req, res) => {
-  res.send("Upload Video");
+  return res.render("upload", { pageTitle: "Upload" });
 };
 
-export const postUploadVideo = (req, res) => {
-  res.send("Post Upload Video");
+export const postUploadVideo = async (req, res) => {
+  const { title, content, hashtags } = req.body;
+  try {
+    const newVideo = await Video.create({
+      title,
+      content,
+      hashtags,
+    });
+    return res.redirect("/");
+  } catch (e) {
+    return res.status(404).redirect("/videos/upload");
+  }
 };
 
 export const getEditVideo = (req, res) => {
