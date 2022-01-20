@@ -4,12 +4,12 @@ import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 
 const app = express();
-const PORT = 7070;
+
+app.set("view engine", "pug");
+app.set("views", "src/views");
 
 app.use("/", globalRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);
 
-app.listen(PORT, () =>
-  console.log(`✅ Server listening to ${PORT} port number! `)
-);
+export default app;

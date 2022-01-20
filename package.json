@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev:server": "nodemon --exec babel-node src/server.js"
+    "dev:server": "nodemon --exec babel-node src/init.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,9 @@
     "@babel/preset-env": "^7.16.10",
     "express": "^4.17.2",
     "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "mongoose": "^6.1.7",
+    "pug": "^3.0.2"
   }
 }

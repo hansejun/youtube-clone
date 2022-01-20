@@ -1,3 +1,4 @@
 1. git init / git remote add orgin [ 복사한 URL ]
 
 2. babel core / babel preset / babel node / nodemon 
+
