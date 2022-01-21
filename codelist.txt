@@ -1,0 +1,155 @@
+mongod --config /opt/homebrew/etc/mongod.conf --fork
+
+1. db.js 생성
+
+    import mongoose from "mongoose";
+
+    mongoose.connect(" mongodb://127.0.0.1:27017/wetube3");
+
+    const db = mongoose.connection;
+
+    db.on("error", (error) => console.log("DB Error", error));
+    db.once("open", () => console.log(c));
+----------------------------------------------------------------------
+2. Model 생성
+
+    import mongoose from "mongoose";
+c
+    const videoSchema = new mongoose.Schema({
+      title: { type: String, required: true },
+      content: { type: String, required: true },
+      createdAt: { type: Date, default: Date.now },
+      hashtags: [{ type: String, required: true }],
+      meta: {
+        views: { type: Number, default: 0 },
+        rate: { type: Number, default: 0 }
+      }
+    });
+
+    const Video = mongoose.model("Video", videoSchema);
+    export default Video;
+
+----------------------------------------------------------------------
+3. req.body를 사용하기 위한 코드 
+
+    app.use(express.urlencoded({extended:true}))
+
+----------------------------------------------------------------------
+4. mixin 
+
+    mixin video(video)
+      div
+        h3=video.title
+        p=video.content
+        small=video.createdAt 
+        ul 
+          each hashtag in hashtags 
+            li=hashtag
+        hr
+
+----------------------------------------------------------------------
+5. 비밀번호 hashing 
+
+    userSchema.pre("save",async function(){
+      if(this.isModified("password")){
+        this.password = await bcrypt.hash(this.password,5);
+      }
+    });
+
+----------------------------------------------------------------------
+6. dotenv
+
+    npm install dotenv
+
+    import "dotenv/config";
+
+----------------------------------------------------------------------
+7. 정규표현식
+
+    let videos = [];
+      if(keyword){
+        videos = await Video.find({ title: { $regex:new RegExp(keyword,"i") } })
+      }
+
+-----------------------------------------------------------------------
+8. multer 사용
+
+    1) middleware.js
+        export const avatarUpload = multer({ dest:"uploads/avatars/",limits:{fileSize:3000000} });
+        export const videoUpload = multer({ dest:"uploads/videos/",limits:{fileSize:10000000} });
+
+    2) server.js
+        app.use("/uploads",express.static("uploads"));
+
+-----------------------------------------------------------------------
+9. gitLogin
+  
+export const finishGitLogin = async(req,res) => {
+  const baseUrl = "https://github.com/login/oauth/access_token"
+  const config = {
+    client_id: process.env.CLIENT_ID,
+    client_secret: process.env.CLIENT_SECRET,
+    code: req.query.code
+  }
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseUrl}?${params}`;
+
+  const tokenRequest = await(
+    await fetch(finalUrl,{
+      method:"POST",
+      headers:{
+        Accept:"application/json"
+      }
+    })
+  ).json();
+  console.log(tokenRequest);
+
+  if("access_token" in tokenRequest){
+    const {access_token} = tokenRequest;
+    const apiUrl = "https://api.github.com";
+    const userData = await(
+      await fetch(`${apiUrl}/user`,{
+        headers:{
+          Authorization:`token ${access_token}`
+        }
+      })
+    ).json();
+
+    console.log("userdata",userData);
+    const emailData = await(
+      await fetch(`${apiUrl}/user/emails`,{
+        headers:{
+          Authorization:`token ${access_token}`
+        }
+      })
+    ).json();
+    console.log("emaildata",emailData);
+    const emailObj = emailData.find(
+      (email) => email.primary === true && email.verified === true
+    );
+    if(!emailObj){
+      return res.redirect("/");
+    }
+    let user = await User.findOne({email:emailObj.email});
+    if(!user){
+      try{
+        user = await User.create({
+          username:userData.login,
+          name:userData.login,
+          password:"",
+          socialOnly:true,
+          email:emailObj.email,
+          avatarUrl:userData.avatar_Url
+        });
+      }catch(e){
+        console.log("계정 생성 에러",e)
+        return res.status(400).redirect("/")
+      }
+    }
+    req.session.loggedIn = true;
+    req.session.user = user;
+    return res.redirect("/");
+  }else{
+    return res.status(400).redirect("/");
+  }
+}
