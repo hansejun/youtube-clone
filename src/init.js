@@ -1,6 +1,7 @@
 import app from "./server.js";
 import "./db";
 import "./models/Video";
+import "./models/User";
 
 const PORT = 7070;
 
