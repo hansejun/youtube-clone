@@ -1,4 +1,5 @@
 import User from "../models/User";
+import bcrypt from "bcrypt";
 
 export const getJoin = (req, res) => {
   return res.render("users/join", { pageTitle: "Join Page" });
@@ -48,9 +49,27 @@ export const postJoin = async (req, res) => {
 };
 
 export const getLogin = (req, res) => {
-  return res.send("Login Page");
+  return res.render("users/login", { pageTitle: "Login Page" });
 };
 
-export const postLogin = (req, res) => {
-  return res.send("POST Login Page");
+export const postLogin = async (req, res) => {
+  const pageTitle = "Login Page";
+  const { username, password } = req.body;
+  const user = await User.findOne({ username });
+  // 계정이 존재하는지 확인
+  console.log(user);
+  if (!user) {
+    return res
+      .status(400)
+      .render("users/login", { pageTitle, errorMessage: "Check your ID" });
+  }
+  // 비밀번호 확인 맞으면 true 아니면 false 반환
+  const checkPassword = await bcrypt.compare(password, user.password);
+  if (!checkPassword) {
+    return res.status(400).render("users/login", {
+      pageTitle,
+      errorMessage: "Check your Password",
+    });
+  }
+  return res.redirect("/");
 };
