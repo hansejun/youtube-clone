@@ -6,6 +6,8 @@ const userSchema = new mongoose.Schema({
   password: { type: String },
   email: { type: String, required: true, unique: true },
   name: { type: String, required: true },
+  socialOnly: { type: Boolean, required: true, default: false },
+  avatarUrl: { type: String },
 });
 
 // pre는 첫번째 파라미터로 설정된 event가 발생하기 전에 callback 함수를 실행시킨다.
