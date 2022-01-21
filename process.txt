@@ -7,7 +7,7 @@
 [v] User 모델 생성
 [v] join pug 생성
 [v] join controller 정의. 동일한 id / email이 User model에 있는지 확인 
-[ ] User의 password bcrypt로 암호화
+[v] User의 password bcrypt로 암호화
 [ ] login pug 생성
 [ ] login controller 정의 , password를 bcryt.compare를 통해서 암호화한 패스워드와 동일한지 확인 
 [ ] login controller에서 id / password 체크

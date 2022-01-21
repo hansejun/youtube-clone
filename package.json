@@ -24,6 +24,7 @@
     "nodemon": "^2.0.15"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "mongoose": "^6.1.7",
     "morgan": "^1.10.0",
     "pug": "^3.0.2"
