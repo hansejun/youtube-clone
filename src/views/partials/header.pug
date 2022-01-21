@@ -4,9 +4,16 @@ header
     ul 
       li 
         a(href="/") Home 
-      li  
-        a(href="/videos/upload") Upload 
-      li 
-        a(href="/login") Login 
-      li 
-        a(href="/join") Join
+      if loggedIn
+        li  
+          a(href="/videos/upload") Upload
+        li
+          a(href=`/users/${loggedInUser._id}`) Profile
+        li 
+          a(href="/logout") Logout
+        
+      if !loggedIn 
+        li 
+          a(href="/login") Login 
+        li 
+          a(href="/join") Join

@@ -8,6 +8,17 @@
 [v] join pug 생성
 [v] join controller 정의. 동일한 id / email이 User model에 있는지 확인 
 [v] User의 password bcrypt로 암호화
-[ ] login pug 생성
-[ ] login controller 정의 , password를 bcryt.compare를 통해서 암호화한 패스워드와 동일한지 확인 
-[ ] login controller에서 id / password 체크
+[v] login pug 생성
+[v] login controller 정의 , password를 bcryt.compare를 통해서 암호화한 패스워드와 동일한지 확인 
+[v] login controller에서 id / password 체크
+
+[] search 기능 만들기 router / controller / 
+[v] session middeleware 생성 
+[v] login할 때 session에 기록
+[v]  logout 기능 만들기
+[v] edit-profile pug/router/controller 생성
+[] edit-password pug/router/controller 생성
+[] git 로그인 / 카카오 로그인 / 페이스북 로그인 만들기 
+[] SNS 로그인 했을 때 해당 이메일과 동일한 계정이 존재하는 지 확인해서 없으면 계정 생성 있으면 회원가입 불가 
+[] 프로필 사진 등록할 수 있게 하기. User model에 avatarUrl 속성 추가 
+[] 동영상 올릴 수 있게 하기. Video Model에 fileUrl 만들기 

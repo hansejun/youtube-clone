@@ -75,3 +75,63 @@ export const postLogin = async (req, res) => {
   req.session.user = user;
   return res.redirect("/");
 };
+
+export const logout = (req, res) => {
+  req.session.destroy();
+  return res.redirect("/");
+};
+
+export const profile = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  if (!user) {
+    return res.status(400).redirect("/");
+  }
+  return res.render("users/profile", { pageTitle: user.username, user });
+};
+
+export const getEditProfile = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  if (!user) {
+    return res.status(400).redirect(`/users/${id}`);
+  }
+  return res.render("users/edit-profile", { pageTitle: "Edit Profile", user });
+};
+
+export const postEditProfile = async (req, res) => {
+  const { username, name, email } = req.body;
+  const { _id } = req.session.user;
+  const pageTitle = "Edit Profile";
+  const user = await User.findById(_id);
+  // id를 수정했다면 수정한 id가 DB에 존재하는지 확인
+  if (user.username !== username) {
+    const checkUsername = await User.exists({ username });
+    if (checkUsername) {
+      return res.status(400).render("users/edit-profile", {
+        pageTitle,
+        errorMessage: "Already exists ID",
+        user,
+      });
+    }
+  }
+  // email을 수정했다면 수정한 email과 중복되는 email이 DB에 존재하는지 확인
+  if (user.email !== email) {
+    const checkEmail = await User.exists({ email });
+    if (checkEmail) {
+      return res.status(400).render("users/edit-profile", {
+        pageTitle,
+        errorMessage: "Already exists Email",
+        user,
+      });
+    }
+  }
+
+  await User.findByIdAndUpdate(_id, {
+    username,
+    name,
+    email,
+  });
+
+  return res.redirect(`/users/${_id}`);
+};
