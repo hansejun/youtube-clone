@@ -12,7 +12,7 @@
 [v] login controller 정의 , password를 bcryt.compare를 통해서 암호화한 패스워드와 동일한지 확인 
 [v] login controller에서 id / password 체크
 
-[] search 기능 만들기 router / controller / 
+[v] search 기능 만들기 router / controller / 
 [v] session middeleware 생성 
 [v] login할 때 session에 기록
 [v]  logout 기능 만들기
