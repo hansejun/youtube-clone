@@ -126,12 +126,39 @@ export const postEditProfile = async (req, res) => {
       });
     }
   }
-
-  await User.findByIdAndUpdate(_id, {
+  const updatedUser = await User.findByIdAndUpdate(_id, {
     username,
     name,
     email,
   });
-
+  req.session.user = updatedUser;
   return res.redirect(`/users/${_id}`);
+};
+
+export const getEditPassword = (req, res) => {
+  return res.render("users/edit-password", { pageTitle: "Changed Password" });
+};
+
+export const postEditPassword = async (req, res) => {
+  const pageTitle = "Changed Password";
+  const { nowPassword, newPassword, newPassword2 } = req.body;
+  const { _id } = req.session.user;
+  const user = await User.findById(_id);
+  const checkPassword = await bcrypt.compare(nowPassword, user.password);
+  // 현재 비밀번호가 내 계정 비밀번호와 맞는지 확인
+  if (!checkPassword) {
+    return res.status(400).render("users/edit-password", {
+      pageTitle,
+      errorMessage: "The password is not correct.",
+    });
+  }
+  if (newPassword !== newPassword2) {
+    return res.status(400).render("users/edit-password", {
+      pageTitle,
+      errorMessage: "Please check out the new password.",
+    });
+  }
+  user.password = newPassword;
+  user.save();
+  return res.redirect("/login");
 };

@@ -17,7 +17,7 @@
 [v] login할 때 session에 기록
 [v]  logout 기능 만들기
 [v] edit-profile pug/router/controller 생성
-[] edit-password pug/router/controller 생성
+[v] edit-password pug/router/controller 생성
 [] git 로그인 / 카카오 로그인 / 페이스북 로그인 만들기 
 [] SNS 로그인 했을 때 해당 이메일과 동일한 계정이 존재하는 지 확인해서 없으면 계정 생성 있으면 회원가입 불가 
 [] 프로필 사진 등록할 수 있게 하기. User model에 avatarUrl 속성 추가 
