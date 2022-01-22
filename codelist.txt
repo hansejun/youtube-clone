@@ -84,6 +84,13 @@ c
 -----------------------------------------------------------------------
 9. gitLogin
   
+깃허브에 "https://github.com/login/oauth/authorize"에 client_id, scope(이메일, 유저 프로필 등),allow_signup 등 정보를 담아 승인 요청. 
+-> 깃허브 측에서 code와 함께 지정한 URL로 redirect 
+-> fetch()를 사용하여 "https://gitgub.com/login/oauth/access_token"에 client_id, client_secret, code의 정보를 담아 POST request를 보낸다. 
+-> fetch() POST 요청을 통해 promise 객체가 리턴되고 그것을 json()을 사용해 객체에 접근을 한다. 이 객체에 access_token이 존재한다.
+-> 이 access_token을 추출해 Github api에 Authorization: token access_token 정보를 담아 fetch()를 통해 원하는 user 혹은 email 등의 객체를 리턴 받는다.
+-> 
+
 export const finishGitLogin = async(req,res) => {
   const baseUrl = "https://github.com/login/oauth/access_token"
   const config = {
@@ -153,3 +160,8 @@ export const finishGitLogin = async(req,res) => {
     return res.status(400).redirect("/");
   }
 }
+
+-------------------
+
+10. node-fetch 
+  - npm i node-fetch@2.6.1

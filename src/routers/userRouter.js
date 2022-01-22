@@ -5,7 +5,7 @@ import {
   postEditProfile,
   getEditPassword,
   postEditPassword,
-} from "../controllers/userController";
+} from "../controllers/user/profileController";
 
 const userRouter = express.Router();
 
