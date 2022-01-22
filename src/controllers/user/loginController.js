@@ -1,6 +1,7 @@
 import User from "../../models/User";
 import bcrypt from "bcrypt";
 import fetch from "node-fetch";
+import qs from "qs";
 
 export const getLogin = (req, res) => {
   return res.render("users/login", { pageTitle: "Login Page" });
@@ -61,7 +62,6 @@ export const finishGitLogin = async (req, res) => {
       },
     })
   ).json();
-  console.log(tokenRequest);
 
   if ("access_token" in tokenRequest) {
     const { access_token } = tokenRequest;
@@ -125,7 +125,7 @@ export const startKakaoLogin = (req, res) => {
 };
 
 export const finishKakaoLogin = async (req, res) => {
-  const baseUrl = "https://kauth.kakao.com//oauth/token";
+  const baseUrl = "https://kauth.kakao.com/oauth/token";
   const config = {
     grant_type: "authorization_code",
     client_id: process.env.KAKAO_CLIENT_ID,
@@ -135,14 +135,51 @@ export const finishKakaoLogin = async (req, res) => {
   };
   const params = new URLSearchParams(config).toString();
   const finalUrl = `${baseUrl}?${params}`;
-  const token = await fetch(finalUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
-    },
-  });
-
-  return res.end();
+  const tokenRequest = await (
+    await fetch(finalUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+      },
+    })
+  ).json();
+  if ("access_token" in tokenRequest) {
+    const { access_token } = tokenRequest;
+    const apiUrl = "https://kapi.kakao.com/v2/user/me";
+    const userData = await (
+      await fetch(apiUrl, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
+    ).json();
+    console.log(userData);
+    if (!userData) {
+      return res.status(400).redirect("/login");
+    }
+    let user = await User.findOne({ email: userData.kakao_account.email });
+    if (!user) {
+      try {
+        user = await User.create({
+          username: userData.kakao_account.email.split("@")[0],
+          password: "",
+          email: userData.kakao_account.email,
+          name: userData.properties.nickname,
+          socialOnly: true,
+          avatarUrl: userData.properties.profile_image,
+        });
+      } catch (e) {
+        console.log("계정생성 실패", e);
+        return res.status(400).redirect("/login");
+      }
+    }
+    req.session.loggedIn = true;
+    req.session.user = user;
+    return res.redirect("/");
+  } else {
+    return res.status(400).redirect("/login");
+  }
 };
 
 export const logout = (req, res) => {
