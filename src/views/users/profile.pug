@@ -10,6 +10,10 @@ block content
   h3 Name #{user.name}
   h3 Email #{user.email}
   hr 
-  a(href=`/users/${loggedInUser._id}/edit`) Edit Profile &rarr;
-  br
-  a(href=`/users/${loggedInUser._id}/edit-password`) Changed Password &rarr;
+  each video in user.videos
+    +video(video)
+  hr
+  if loggedInUser._id == user._id
+    a(href=`/users/${loggedInUser._id}/edit`) Edit Profile &rarr;
+    br
+    a(href=`/users/${loggedInUser._id}/edit-password`) Changed Password &rarr;

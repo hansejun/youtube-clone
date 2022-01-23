@@ -1,4 +1,5 @@
 import Video from "../models/Video";
+import User from "../models/User";
 
 export const home = async (req, res) => {
   const videos = await Video.find({}).sort({ createdAt: "desc" });
@@ -21,13 +22,19 @@ export const getUploadVideo = (req, res) => {
 export const postUploadVideo = async (req, res) => {
   const { title, content, hashtags } = req.body;
   const file = req.file;
+  const { _id } = req.session.user;
   try {
     const newVideo = await Video.create({
       title,
       content,
       hashtags: Video.formatHashtags(hashtags),
       fileUrl: file.path,
+      owner: _id,
     });
+    const user = await User.findById(_id).populate("videos");
+    user.videos.push(newVideo._id);
+    user.save();
+    req.session.user = user;
     return res.redirect("/");
   } catch (e) {
     return res.status(404).redirect("/videos/upload");
@@ -36,8 +43,9 @@ export const postUploadVideo = async (req, res) => {
 
 export const getEditVideo = async (req, res) => {
   const { id } = req.params;
-  const video = await Video.findById(id);
+  const video = await Video.findById(id).populate("owner");
   const newHashtags = video.hashtags.map((hashtag) => hashtag.substr(1).trim());
+  console.log(video.owner);
   if (!video) {
     return res.status(400).redirect(`/videos/${id}`);
   }

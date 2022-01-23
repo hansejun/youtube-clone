@@ -3,6 +3,7 @@ extends ../base
 block content 
   video(src="/"+video.fileUrl,controls)
   hr
-  a(href=`/videos/${video._id}/edit`) Edit Video &rarr; 
-  br
-  a(href=`/videos/${video._id}/delete`) Delete Video &rarr;
+  if loggedInUser._id == video.owner._id
+    a(href=`/videos/${video._id}/edit`) Edit Video &rarr; 
+    br
+    a(href=`/videos/${video._id}/delete`) Delete Video &rarr;

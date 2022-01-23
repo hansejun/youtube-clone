@@ -1,14 +1,19 @@
 import User from "../../models/User";
 import bcrypt from "bcrypt";
 import fetch from "node-fetch";
+import Video from "../../models/Video";
 
 export const profile = async (req, res) => {
   const { id } = req.params;
-  const user = await User.findById(id);
+  const user = await User.findById(id).populate("videos");
+  console.log(user.videos);
   if (!user) {
     return res.status(400).redirect("/");
   }
-  return res.render("users/profile", { pageTitle: user.username, user });
+  return res.render("users/profile", {
+    pageTitle: user.username,
+    user,
+  });
 };
 
 export const getEditProfile = async (req, res) => {
