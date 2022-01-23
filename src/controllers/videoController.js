@@ -1,7 +1,7 @@
 import Video from "../models/Video";
 
 export const home = async (req, res) => {
-  const videos = await Video.find({});
+  const videos = await Video.find({}).sort({ createdAt: "desc" });
   return res.render("home", { pageTitle: "Home", videos });
 };
 
@@ -20,11 +20,13 @@ export const getUploadVideo = (req, res) => {
 
 export const postUploadVideo = async (req, res) => {
   const { title, content, hashtags } = req.body;
+  const file = req.file;
   try {
     const newVideo = await Video.create({
       title,
       content,
       hashtags: Video.formatHashtags(hashtags),
+      fileUrl: file.path,
     });
     return res.redirect("/");
   } catch (e) {

@@ -1,7 +1,9 @@
 extends ../base
 
 block content 
-  form(method="POST")
+  form(method="POST",enctype="multipart/form-data")
+    label(for="videoFile") 비디오 업로드
+    input(name="videoFile",id="videoFile",type="file",accept="video/*",required)
     input(name="title",placeholder="Title",required,type="text")
     input(name="content",placeholder="Description",required,type="text")
     input(name="hashtags",placeholder="Hashtags ex) vlog,seoul,busan",required,type="text")

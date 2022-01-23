@@ -1,10 +1,7 @@
 extends ../base 
 
 block content 
-  div
-    p=video.content
-    each hashtag in video.hashtags
-      span   #{hashtag}
+  video(src="/"+video.fileUrl,controls)
   hr
   a(href=`/videos/${video._id}/edit`) Edit Video &rarr; 
   br

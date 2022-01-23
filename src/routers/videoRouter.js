@@ -7,14 +7,14 @@ import {
   postEditVideo,
   deleteVideo,
 } from "../controllers/videoController";
-import { onlyLoggedIn } from "../middleware";
+import { onlyLoggedIn, videoUpload } from "../middleware";
 const videoRouter = express.Router();
 
 videoRouter
   .route("/upload")
   .all(onlyLoggedIn)
   .get(getUploadVideo)
-  .post(postUploadVideo);
+  .post(videoUpload.single("videoFile"), postUploadVideo);
 videoRouter.route("/:id([0-9a-f]{24})").get(watch);
 videoRouter
   .route("/:id([0-9a-f]{24})/edit")
