@@ -1,7 +1,6 @@
 {
   "name": "youtube-clone",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "dev:server": "nodemon --exec babel-node src/init.js"
@@ -33,5 +32,6 @@
     "node-fetch": "^2.6.1",
     "pug": "^3.0.2",
     "qs": "^6.10.3"
-  }
+  },
+  "description": ""
 }
