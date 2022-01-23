@@ -18,7 +18,7 @@
 [v]  logout 기능 만들기
 [v] edit-profile pug/router/controller 생성
 [v] edit-password pug/router/controller 생성
-[] git 로그인 / 카카오 로그인 / 페이스북 로그인 만들기 
-[] SNS 로그인 했을 때 해당 이메일과 동일한 계정이 존재하는 지 확인해서 없으면 계정 생성 있으면 회원가입 불가 
-[] 프로필 사진 등록할 수 있게 하기. User model에 avatarUrl 속성 추가 
-[] 동영상 올릴 수 있게 하기. Video Model에 fileUrl 만들기 
+[v] git 로그인 / 카카오 로그인 / 네이버 로그인 만들기 
+[v] SNS 로그인 했을 때 해당 이메일과 동일한 계정이 존재하는 지 확인해서 없으면 계정 생성 있으면 회원가입 불가 
+[] multer를 사용해서 프로필 사진 등록할 수 있게 하기. User model에 avatarUrl 속성 추가 
+[] multer를 사용해서 동영상 올릴 수 있게 하기. Video Model에 fileUrl 만들기 

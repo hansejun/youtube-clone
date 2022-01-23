@@ -1,8 +1,12 @@
 extends ../base 
 include ../mixins/video
 
-block content 
-  img(src=`${user.avatarUrl}` ,width="50",height="50")
+block content
+  
+  if !user.avatarUrl.startsWith("h")
+    img(src="/"+`${user.avatarUrl}` ,width="50",height="50")
+  else
+    img(src=user.avatarUrl,width="50",height="50")
   h3 Name #{user.name}
   h3 Email #{user.email}
   hr 

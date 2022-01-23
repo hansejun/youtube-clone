@@ -16,6 +16,7 @@ app.set("views", "src/views");
 app.use(express.urlencoded({ extended: true }));
 // form을 이해하고 req.body로 받기 위한 코드
 app.use(logger);
+app.use("/uploads", express.static("uploads"));
 
 // session을 MongoDB에 저장
 app.use(

@@ -24,6 +24,7 @@ export const postEditProfile = async (req, res) => {
   const { username, name, email } = req.body;
   const { _id } = req.session.user;
   const pageTitle = "Edit Profile";
+  const file = req.file;
   const user = await User.findById(_id);
   // id를 수정했다면 수정한 id가 DB에 존재하는지 확인
   if (user.username !== username) {
@@ -47,10 +48,12 @@ export const postEditProfile = async (req, res) => {
       });
     }
   }
+
   const updatedUser = await User.findByIdAndUpdate(_id, {
     username,
     name,
     email,
+    avatarUrl: file ? file.path : req.session.user.avatarUrl,
   });
   req.session.user = updatedUser;
   return res.redirect(`/users/${_id}`);
