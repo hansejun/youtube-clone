@@ -1,10 +1,10 @@
 .header {
   background-color: #212121;
-  min-height: 50px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding: 0px 30px 0px 80px;
+  margin-bottom: 30px;
   nav {
-    height: 50px;
+    height: 60px;
   }
   nav ul {
     display: grid;
@@ -66,14 +66,14 @@
       .header-nav__options-login,
       .header-nav__options-join {
         background-color: white;
-        padding: 6px 9px;
+        padding: 7px 11px;
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 10px;
+        border-radius: 7px;
         a {
           color: #383838;
-          font-weight: 600;
+          font-weight: 700;
         }
       }
     }

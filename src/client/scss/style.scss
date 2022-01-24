@@ -6,6 +6,7 @@
 @import "./components/header.scss";
 @import "./components/video.scss";
 @import "./components/avatar.scss";
+@import "./components/form.scss";
 // screens
 @import "./screens/home.scss";
 @import "./screens/watch.scss";
@@ -19,9 +20,4 @@ body {
     color: white;
     text-decoration: none;
   }
-}
-main {
-  width: 90%;
-  margin: 0 auto;
-  margin-top: 30px;
 }

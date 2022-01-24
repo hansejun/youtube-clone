@@ -1,0 +1,84 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  margin-top: 10vh;
+  padding: 30px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid $line;
+  h2 {
+    margin: 0 auto;
+    margin-bottom: 30px;
+    font-size: 25px;
+    font-weight: 600;
+  }
+  input {
+    width: 350px;
+    height: 40px;
+    padding: 0 10px;
+    margin-bottom: 15px;
+    background-color: #121212;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+  }
+  .form-submit {
+    background-color: rgb(255, 0, 0);
+    color: white;
+    width: 370px;
+    height: 45px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+  }
+}
+
+.social-login {
+  width: 370px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  i {
+    font-size: 20px;
+    margin-right: 10px;
+    margin-left: 20px;
+  }
+  a {
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+.social-login__github {
+  background-color: white;
+  color: black;
+  margin-top: 30px;
+  a {
+    color: black;
+  }
+}
+.social-login__kakao {
+  background-color: #f2dc01;
+  color: #371a1a;
+  a {
+    color: #371a1a;
+  }
+}
+.social-login__Naver {
+  span {
+    font-size: 20px;
+    font-weight: bolder;
+    padding: 2px 4px;
+    background-color: white;
+    margin-right: 10px;
+    color: #36ab36;
+    margin-left: 20px;
+    border-radius: 3px;
+  }
+  background-color: #36ab36;
+}

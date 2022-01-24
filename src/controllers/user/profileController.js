@@ -5,14 +5,18 @@ import Video from "../../models/Video";
 
 export const profile = async (req, res) => {
   const { id } = req.params;
-  const user = await User.findById(id).populate("videos");
-  console.log(user.videos);
+  const user = await User.findById(id).populate({
+    path:"videos",
+    populate:{path:"owner"}
+  });
   if (!user) {
     return res.status(400).redirect("/");
   }
+  const avatarOk = user.avatarUrl.startsWith("h");
   return res.render("users/profile", {
     pageTitle: user.username,
     user,
+    avatarOk
   });
 };
 

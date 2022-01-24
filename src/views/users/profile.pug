@@ -2,8 +2,7 @@ extends ../base
 include ../mixins/video
 
 block content
-  
-  if !user.avatarUrl.startsWith("h")
+  if !avatarOk
     img(src="/"+`${user.avatarUrl}` ,width="50",height="50")
   else
     img(src=user.avatarUrl,width="50",height="50")
