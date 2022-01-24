@@ -1,0 +1,34 @@
+.video-mixin {
+  cursor: pointer;
+  .video-mixin__thumb {
+    width: 100%;
+    height: 170px;
+    background-color: red;
+  }
+  .video-mixin__data {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    .video-mixin__data-avatar {
+      img {
+        border-radius: 50%;
+      }
+    }
+    .video-mixin__data-content {
+      padding: 0px 10px;
+      .video-mixin__data-content__title {
+        font-size: 16px;
+      }
+      .video-mixin__data-content__meta {
+        margin-top: 3px;
+        display: flex;
+        flex-direction: column;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 12px;
+        span {
+          margin-top: 3px;
+        }
+      }
+    }
+  }
+}

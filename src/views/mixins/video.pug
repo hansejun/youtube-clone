@@ -1,10 +1,16 @@
 mixin video(video)
-  div 
-    h3
-      a(href=`/videos/${video._id}`)=video.title
-    p=video.content
-    small=video.createdAt
-    ul 
-      each hashtag in video.hashtags
-        li=hashtag
-      hr 
+  a(href=`/videos/${video._id}`).video-mixin
+    div.video-mixin__thumb
+    div.video-mixin__data
+      div.video-mixin__data-avatar
+        if !video.owner.avatarUrl.startsWith("h")
+          img(src="/"+`${video.owner.avatarUrl}` ,width="35",height="35").avatarImg
+        else
+          img(src=video.owner.avatarUrl,width="35",height="35").avatarImg
+      div.video-mixin__data-content
+        span.video-mixin__data-content__title=video.title
+        div.video-mixin__data-content__meta
+          span #{video.owner.name} 
+          span 조회수 #{video.meta.views} 회 
+ 
+

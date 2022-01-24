@@ -1,22 +1,36 @@
-header 
-  h2 #{pageTitle}
-  nav 
+header.header 
+  nav
     ul 
       li 
-        a(href="/") Home 
-      if loggedIn
+        a(href="/").header-logo 
+          i.fab.fa-youtube
+          span YOUTUBE
+      div.header-nav__search
+        input(type="text",name="keyword",placeholder="검색")
+        div 
+          i.fas.fa-search
+      div.header-nav__options
         li  
-          a(href="/videos/upload") Upload
-        li
-          a(href=`/users/${loggedInUser._id}`) Profile
+          a(href="/videos/upload")
+            i.fas.fa-video
         li 
-          a(href="/logout") Logout
+          i.far.fa-bell
+        li 
+          a(href="/search")
+            i.fas.fa-search
+        if loggedIn
+          li 
+            a(href="/logout")
+              i.fas.fa-sign-out-alt
+          li
+            a(href=`/users/${loggedInUser._id}`).header-nav__options-profile
+              img(src=loggedInUser.avatarUrl,width="40",height="40").avatarImg
+        else 
+          li.header-nav__options-login
+            a(href="/login") Login 
+          li.header-nav__options-join
+            a(href="/join") Join
         
-      if !loggedIn 
-        li 
-          a(href="/login") Login 
-        li 
-          a(href="/join") Join
-      li 
-        a(href="/search") Search
+      
+      
       

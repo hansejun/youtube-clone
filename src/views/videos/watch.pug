@@ -1,8 +1,41 @@
 extends ../base 
 
 block content 
-  video(src="/"+video.fileUrl,controls)
-  hr
+  div.watch
+    video(src="/"+video.fileUrl,controls)
+    div.watch-data
+      span.watch-data__title #{video.title}
+      div.watch-data__meta
+        div.watch-data__meta-number
+          span 조회수 #{video.meta.views}회 • 
+          span #{video.createdAt.getFullYear()}. 
+          span #{video.createdAt.getMonth()+1}. 
+          span #{video.createdAt.getDate()}.
+        .watch-data__meta-icons 
+          i.far.fa-thumbs-up 
+          span 223
+          i.far.fa-thumbs-down
+          span 싫어요
+          i.fas.fa-external-link-alt
+          span 공유
+          i.fas.fa-download
+          span 오프라인 저장
+          i.far.fa-plus-square
+          span 저장
+          i.fas.fa-ellipsis-h
+    div.watch-owner
+      div.watch-owner__info
+        if !video.owner.avatarUrl.startsWith("h")
+          img(src="/"+`${video.owner.avatarUrl}`).avatarImg
+        else
+          img(src=video.owner.avatarUrl).avatarImg
+        div.watch-owner__info-nickname
+          h3 #{video.owner.name}
+          span 구독자 0명
+        div.watch-owner__info-btn
+          span 구독
+      div.watch-owner__description
+        p #{video.content}
   if loggedInUser._id == video.owner._id
     a(href=`/videos/${video._id}/edit`) Edit Video &rarr; 
     br
