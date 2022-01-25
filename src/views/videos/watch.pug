@@ -5,25 +5,30 @@ block content
     div.watch-blank
     div.watch
       div.watch-container
-        video(src="/"+video.fileUrl,controls)
-        div#watchControls
-          div.watchControls-play
-            span#play
-              i.fas.fa-play
-          div.watchControls-volume__icon
-            span#mute
-              i.fas.fa-volume-up
-          div.watchControls-volume__bar
-            input(type="range",step="0.05",value="0.5",min="0",max="1")#volume
-          div.watchControls-time 
-            span#currentTime 00:00
-            span /
-            span#totalTime 00:00
+        video(src="/"+video.fileUrl)
+        div#watchControls.watch-controls
           div.watchControls-timeline 
-            input(type="range",step="1",value="0",min="0")#timeline
-          div.watchControls-screen
-            span#fullScreen 
-              i.fas.fa-expand
+            input(type="range",step="1",value="0",min="0")#timeline.watchControls-timeline__current
+          div.wathchControls-buttons
+            div.wathchControls-buttons__left
+              div.watchControls-play
+                span#play
+                  i.fas.fa-play
+              div.watchControls-volume__icon
+                span#mute
+                  i.fas.fa-volume-up
+              div.watchControls-volume__bar
+                input(type="range",step="0.05",value="0.5",min="0",max="1")#volume
+              div.watchControls-time 
+                span#currentTime 00:00
+                span /
+                span#totalTime 00:00
+            div.wathchControls-buttons__right
+              i.fas.fa-cog
+              i.fas.fa-mobile-alt
+              div.watchControls-screen
+                span#fullScreen 
+                  i.fas.fa-expand
       div.watch-data
         span.watch-data__title #{video.title}
         div.watch-data__meta

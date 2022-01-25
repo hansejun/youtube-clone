@@ -14,6 +14,8 @@ const container = document.querySelector(".watch-container");
 
 let volumeValue = 0.5;
 video.volume = volumeValue;
+let controlsTimeout = null;
+let controlsMovementTimeout = null;
 
 const handlePlayClick = () => {
   if (video.paused) {
@@ -80,6 +82,27 @@ const handleFullScreen = () => {
     : "fas fa-compress";
 };
 
+const hideControls = () => {
+  controls.classList.remove("showing");
+};
+
+const handleMouseMove = (e) => {
+  if (controlsTimeout) {
+    clearTimeout(controlsTimeout);
+    controlsTimeout = null;
+  }
+  if (controlsMovementTimeout) {
+    clearTimeout(controlsMovementTimeout);
+    controlsMovementTimeout = null;
+  }
+  controls.classList.add("showing");
+  controlsMovementTimeout = setTimeout(hideControls, 3000);
+};
+
+const handleMouseLeave = () => {
+  controlsTimeout = setTimeout(hideControls, 2000);
+};
+
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);
@@ -87,3 +110,5 @@ video.addEventListener("loadedmetadata", handleLoadedMetaData);
 video.addEventListener("timeupdate", handleTimeUpdate);
 timeline.addEventListener("input", handelTimelineChange);
 screenBtn.addEventListener("click", handleFullScreen);
+video.addEventListener("mousemove", handleMouseMove);
+video.addEventListener("mouseleave", handleMouseLeave);
