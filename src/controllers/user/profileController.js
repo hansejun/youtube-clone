@@ -6,8 +6,8 @@ import Video from "../../models/Video";
 export const profile = async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(id).populate({
-    path:"videos",
-    populate:{path:"owner"}
+    path: "videos",
+    populate: { path: "owner" },
   });
   if (!user) {
     return res.status(400).redirect("/");
@@ -16,7 +16,7 @@ export const profile = async (req, res) => {
   return res.render("users/profile", {
     pageTitle: user.username,
     user,
-    avatarOk
+    avatarOk,
   });
 };
 
@@ -58,12 +58,13 @@ export const postEditProfile = async (req, res) => {
     }
   }
 
-  const updatedUser = await User.findByIdAndUpdate(_id, {
+  await User.findByIdAndUpdate(_id, {
     username,
     name,
     email,
     avatarUrl: file ? file.path : req.session.user.avatarUrl,
   });
+  const updatedUser = await User.findById(_id);
   req.session.user = updatedUser;
   return res.redirect(`/users/${_id}`);
 };

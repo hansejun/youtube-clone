@@ -24,7 +24,10 @@ header.header
               i.fas.fa-sign-out-alt
           li
             a(href=`/users/${loggedInUser._id}`).header-nav__options-profile
-              img(src=loggedInUser.avatarUrl,width="40",height="40").avatarImg
+              if !loggedInUser.avatarUrl.startsWith("h")
+                img(src="/"+`${loggedInUser.avatarUrl}`).avatarImg
+              else
+                img(src=loggedInUser.avatarUrl).avatarImg
         else 
           li.header-nav__options-login
             a(href="/login") Login 
