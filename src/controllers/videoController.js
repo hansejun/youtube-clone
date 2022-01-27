@@ -11,10 +11,11 @@ export const home = async (req, res) => {
 export const watch = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id).populate("owner");
+  const videos = await Video.find({}).sort({ createdAt: "desc" }).populate("owner");
   if (!video) {
     return res.status(400).redirect("/");
   }
-  return res.render("videos/watch", { pageTitle: video.title, video });
+  return res.render("videos/watch", { pageTitle: video.title, video,videos });
 };
 
 export const getUploadVideo = (req, res) => {

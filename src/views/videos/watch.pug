@@ -1,4 +1,5 @@
 extends ../base 
+include ../mixins/video-list
 
 block content
   div.watch-main
@@ -70,6 +71,9 @@ block content
           p #{video.content}
       div.watch-comment
     div.watch-sideBar
+      each video in videos
+        +videoList(video)
+    div.watch-blank
   if loggedIn
     if loggedInUser._id == video.owner._id
       a(href=`/videos/${video._id}/edit`) Edit Video &rarr; 

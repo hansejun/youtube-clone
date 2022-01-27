@@ -1,6 +1,6 @@
 .watch-main {
   display: grid;
-  grid-template-columns: 5vw 12.5fr 5fr;
+  grid-template-columns: 5vw 12.5fr 5fr 5vw;
 }
 
 .watch {
@@ -70,6 +70,40 @@
       margin-top: 20px;
       padding-left: 50px;
       font-size: 14px;
+    }
+  }
+}
+.watch-sideBar {
+  margin-left: 25px;
+  .videoList-mixin {
+    display: flex;
+    margin-bottom: 10px;
+    .videoList-mixin-thumb {
+      min-width: 180px;
+      height: 100px;
+      background-color: red;
+      margin-right: 10px;
+    }
+    .videoList-mixin__data {
+      display: flex;
+      flex-direction: column;
+      .videoList-mixin__data-owner {
+        margin-top: 10px;
+        margin-bottom: 5px;
+        font-size: 14px;
+      }
+      h3 {
+        font-size: 15px;
+        margin-top: 5px;
+        font-weight: 500;
+      }
+      span {
+        color: rgba(255, 255, 255, 0.6);
+        font-weight: 300;
+      }
+      .videoList-mixin__data-meta {
+        font-size: 12px;
+      }
     }
   }
 }
