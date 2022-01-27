@@ -59,7 +59,7 @@ const formatTime = (time) => new Date(time * 1000).toISOString().substr(14, 5);
 
 const handleLoadedMetaData = (e) => {
   totalTime.innerText = formatTime(Math.floor(video.duration));
-  timeline.max = Math.floor(video.duration);
+  timeline.max = Math.floor(video.duration); 
 };
 
 const handleTimeUpdate = () => {
@@ -103,6 +103,32 @@ const handleMouseLeave = () => {
   controlsTimeout = setTimeout(hideControls, 2000);
 };
 
+const handleTimePlus = (num) =>{
+  timeline.value += num;
+  handelTimelineChange();
+}
+const handleTimeMinus = (num) =>{
+  timeline.value -= num;
+  handelTimelineChange();
+}
+
+const handleKeyDown = (event) =>{
+  const key = event.key;  
+  console.log(key);
+  if(key === " "){
+    handlePlayClick();
+  }
+  if(key === "ArrowRight"){
+    handleTimePlus(5);
+  }
+  if(key === "ArrowLeft"){
+    handleTimeMinus(5);
+  }
+  if(key === "Enter"){
+    handleFullScreen();
+  }
+}
+
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);
@@ -110,5 +136,7 @@ video.addEventListener("loadedmetadata", handleLoadedMetaData);
 video.addEventListener("timeupdate", handleTimeUpdate);
 timeline.addEventListener("input", handelTimelineChange);
 screenBtn.addEventListener("click", handleFullScreen);
-video.addEventListener("mousemove", handleMouseMove);
-video.addEventListener("mouseleave", handleMouseLeave);
+container.addEventListener("mousemove", handleMouseMove);
+container.addEventListener("mouseleave", handleMouseLeave);
+container.addEventListener("click",handlePlayClick);
+window.addEventListener("keydown",handleKeyDown);

@@ -70,9 +70,10 @@ block content
           p #{video.content}
       div.watch-comment
     div.watch-sideBar
-  if loggedInUser._id == video.owner._id
-    a(href=`/videos/${video._id}/edit`) Edit Video &rarr; 
-    br
-    a(href=`/videos/${video._id}/delete`) Delete Video &rarr;
+  if loggedIn
+    if loggedInUser._id == video.owner._id
+      a(href=`/videos/${video._id}/edit`) Edit Video &rarr; 
+      br
+      a(href=`/videos/${video._id}/delete`) Delete Video &rarr;
 block scripts 
   script(src="/assets/js/videoPlayer.js")

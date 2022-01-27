@@ -1,5 +1,7 @@
 mongod --config /opt/homebrew/etc/mongod.conf --fork
 
+sudo apt-get install mongodb
+
 1. db.js 생성
 
     import mongoose from "mongoose";
