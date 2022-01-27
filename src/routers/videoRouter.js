@@ -14,7 +14,13 @@ videoRouter
   .route("/upload")
   .all(onlyLoggedIn)
   .get(getUploadVideo)
-  .post(videoUpload.single("videoFile"), postUploadVideo);
+  .post(
+    videoUpload.fields([
+      { name: "videoFile", maxCount: 1 },
+      { name: "thumbFile", maxCount: 1 },
+    ]),
+    postUploadVideo
+  );
 videoRouter.route("/:id([0-9a-f]{24})").get(watch);
 videoRouter
   .route("/:id([0-9a-f]{24})/edit")

@@ -1,6 +1,6 @@
 mixin videoList(video)
     a(href=`/videos/${video._id}`).videoList-mixin
-        div.videoList-mixin-thumb
+        div.videoList-mixin-thumb(style=`background-image:url(/${video.thumbUrl})`)
         div.videoList-mixin__data
             h3.videoList-mixin__data-title #{video.title}
             span.videoList-mixin__data-owner #{video.owner.name}

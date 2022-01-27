@@ -26,14 +26,15 @@ export const getUploadVideo = (req, res) => {
 
 export const postUploadVideo = async (req, res) => {
   const { title, content, hashtags } = req.body;
-  const file = req.file;
+  const { videoFile, thumbFile } = req.files;
   const { _id } = req.session.user;
   try {
     const newVideo = await Video.create({
       title,
       content,
       hashtags: Video.formatHashtags(hashtags),
-      fileUrl: file.path,
+      fileUrl: videoFile[0].path,
+      thumbUrl: thumbFile[0].path,
       owner: _id,
     });
     const user = await User.findById(_id).populate("videos");

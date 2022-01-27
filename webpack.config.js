@@ -1,16 +1,19 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 const BASE_JS = "./src/client/js/";
 
 module.exports = {
   entry: {
     main: BASE_JS + "main.js",
     videoPlayer: BASE_JS + "videoPlayer.js",
+    recorder: BASE_JS + "recorder.js",
   },
   plugins: [
     new MiniCssExtractPlugin({
       filename: "css/style.css",
     }),
+    new NodePolyfillPlugin(),
   ],
   output: {
     filename: "js/[name].js",

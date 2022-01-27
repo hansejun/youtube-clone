@@ -10,6 +10,7 @@ const videoSchema = new mongoose.Schema({
     rate: { type: Number, default: 0 },
   },
   fileUrl: { type: String, required: true },
+  thumbUrl: { type: String, required: true },
   owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 

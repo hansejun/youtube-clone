@@ -81,7 +81,8 @@
     .videoList-mixin-thumb {
       min-width: 180px;
       height: 100px;
-      background-color: red;
+      background-position: center;
+      background-size: cover;
       margin-right: 10px;
     }
     .videoList-mixin__data {

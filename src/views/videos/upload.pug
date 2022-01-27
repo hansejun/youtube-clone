@@ -1,10 +1,21 @@
 extends ../base
 
 block content 
-  form(method="POST",enctype="multipart/form-data")
-    label(for="videoFile") 비디오 업로드
-    input(name="videoFile",id="videoFile",type="file",accept="video/*",required)
-    input(name="title",placeholder="Title",required,type="text")
-    input(name="content",placeholder="Description",required,type="text")
-    input(name="hashtags",placeholder="Hashtags ex) vlog,seoul,busan",required,type="text")
-    input(type="submit",value="Upload Video")
+  main.main
+    div
+        video#preview
+    form(method="POST",enctype="multipart/form-data").form.upload-form
+      button#Btn Start
+      span 비디오 파일
+      input(name="videoFile",type="file",accept="video/*",required)
+      span 썸네일
+      input(name="thumbFile",type="file",accept="image/*",required)
+      span 제목
+      input(name="title",placeholder="Title",required,type="text")
+      span 내용
+      input(name="content",placeholder="Description",required,type="text")
+      span 해시태그
+      input(name="hashtags",placeholder="Hashtags ex) vlog,seoul,busan",required,type="text")
+      input(type="submit",value="Upload Video").uploadBtn
+block scripts 
+  script(src="/assets/js/recorder.js")

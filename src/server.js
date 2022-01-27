@@ -16,6 +16,12 @@ app.set("views", "src/views");
 app.use(express.urlencoded({ extended: true }));
 // form을 이해하고 req.body로 받기 위한 코드
 app.use(logger);
+app.use("/convert", express.static("node_modules/@ffmpeg/core/dist"));
+app.use((req, res, next) => {
+  res.header("Cross-Origin-Embedder-Policy", "require-corp");
+  res.header("Cross-Origin-Opener-Policy", "same-origin");
+  next();
+});
 app.use("/uploads", express.static("uploads"));
 app.use("/assets", express.static("assets"));
 
