@@ -11,11 +11,13 @@ export const home = async (req, res) => {
 export const watch = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id).populate("owner");
-  const videos = await Video.find({}).sort({ createdAt: "desc" }).populate("owner");
+  const videos = await Video.find({})
+    .sort({ createdAt: "desc" })
+    .populate("owner");
   if (!video) {
     return res.status(400).redirect("/");
   }
-  return res.render("videos/watch", { pageTitle: video.title, video,videos });
+  return res.render("videos/watch", { pageTitle: video.title, video, videos });
 };
 
 export const getUploadVideo = (req, res) => {
@@ -84,4 +86,15 @@ export const search = async (req, res) => {
     videos = await Video.find({ title: { $regex: new RegExp(keyword, "i") } });
   }
   return res.render("search", { pageTitle: "Search Page", videos });
+};
+
+export const registerView = async (req, res) => {
+  const { id } = req.params;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.sendStatus(400);
+  }
+  video.meta.views += 1;
+  await video.save();
+  return res.sendStatus(200);
 };

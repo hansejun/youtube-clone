@@ -26,20 +26,20 @@
 [v] webpack 설치
 [v] webpack.config.js 파일 설정
 
-[] 기본이미지 구현
-[] 기본 폰트 구현
-[] video playser custom
+[v] 기본이미지 구현
+[v] 기본 폰트 구현 google-font roboto
+[v] video player custom
 [] 코멘트창 구현 
 [] 에러메시지 구현
 
 home
 [] 썸네일 구현
-[] 조회수 구현 
+[v] 조회수 구현 
 [] ~시간 전 , ~분전 구현
 [] 검색창 구현
 
 watch
-[ ] video list 추가
+[v] video list 추가
 [] 좋아요 구현
 [] 싫어요 구현 
 [] 공유 구현 

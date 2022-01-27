@@ -5,7 +5,7 @@ block content
   div.watch-main
     div.watch-blank
     div.watch
-      div.watch-container
+      div.watch-container(data-id=video._id)
         video(src="/"+video.fileUrl)
         div#watchControls.watch-controls
           div.watchControls-timeline 
