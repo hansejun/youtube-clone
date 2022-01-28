@@ -1,11 +1,14 @@
 extends ../base
 
 block content 
-  main.main
-    div
-        video#preview
+  main.main.upload-main
+    div#preview-container
+        video#preview.upload-preview
+        div.upload-preview__btn
+          i.fas.fa-undo-alt
     form(method="POST",enctype="multipart/form-data").form.upload-form
-      button#Btn Start
+      div#recordingBtn.recordingBtn
+        i.fas.fa-video
       span 비디오 파일
       input(name="videoFile",type="file",accept="video/*",required)
       span 썸네일

@@ -1,14 +1,44 @@
-.upload-form {
-  align-items: unset;
-  span {
-    font-size: 13px;
-    margin-bottom: 5px;
+.upload-main {
+  display: flex;
+  flex-direction: column;
+  #preview-container {
+    display: none;
+    .upload-preview__btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 5px;
+      background-color: red;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      margin-top: 20px;
+      cursor: pointer;
+      opacity: 0;
+    }
   }
-  .uploadBtn {
-    margin: 0 auto;
-    background-color: red;
-    border: none;
-    margin-top: 10px;
-    cursor: pointer;
+
+  .upload-form {
+    align-items: unset;
+    .recordingBtn {
+      padding: 5px 10px;
+      font-size: 18px;
+      margin: 0 auto;
+      margin-bottom: 20px;
+      background-color: green;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    span {
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+    .uploadBtn {
+      margin: 0 auto;
+      background-color: red;
+      border: none;
+      margin-top: 10px;
+      cursor: pointer;
+    }
   }
 }

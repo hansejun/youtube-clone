@@ -3,7 +3,10 @@ const bodyParser = require("body-parser");
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 // ffmpeg를 사용하기 위해서는 2개의 함수를 import 시켜주어야한다.
 
+const previewContainer = document.getElementById("preview-container");
 const actionBtn = document.getElementById("recordingBtn");
+const btnIcon = actionBtn.querySelector("i");
+const returnBtn = previewContainer.querySelector(".upload-preview__btn");
 const video = document.getElementById("preview");
 
 let stream = null;
@@ -73,48 +76,62 @@ const handleDownload = async () => {
   URL.revokeObjectURL(videoFile);
 
   actionBtn.disabled = false;
+  actionBtn.style.backgroundColor = "green";
   actionBtn.innerText = "Record Again";
-  actionBtn.addEventListener("click", handleStart);
-  init();
+  actionBtn.addEventListener("click", init);
+  previewContainer.style.display = "none";
+  stream = null;
+  video.srcObject = stream;
 };
 
 const handleStart = () => {
-  actionBtn.innerText = "Recording";
   actionBtn.disabled = true;
+  actionBtn.innerText = "Recording";
+  actionBtn.style.backgroundColor = "red";
   actionBtn.removeEventListener("click", handleStart);
-  actionBtn.addEventListener("click", handleDownload);
   recorder = new MediaRecorder(stream);
   recorder.ondataavailable = (e) => {
     console.log(e.data);
-    // createObjectUrl은 브라우저 메모리에서만 가능한 URL을 만들어준다.
-    // 웹사이트상에 존재하는 URL처럼 보이지만 실제로는 존재하지 않는다. 단순히 브라우저의 메모리를 가리키기만 하고 있는 URL일 뿐이다.
-    // 쉽게 말해 파일을 가리키고 있는 URL이다.
     videoFile = URL.createObjectURL(e.data);
     console.log(videoFile);
     video.srcObject = null;
     video.src = videoFile;
     video.loop = true;
     video.play();
+    actionBtn.style.backgroundColor = "green";
     actionBtn.innerText = "Download";
     actionBtn.disabled = false;
+    actionBtn.addEventListener("click", handleDownload);
   };
   recorder.start();
   setTimeout(() => {
     recorder.stop();
+    actionBtn.addEventListener("click", handleDownload);
+    returnBtn.style.opacity = 1;
+    returnBtn.addEventListener("click", handleReturn);
   }, 5000);
 };
 
+const handleReturn = () => {
+  actionBtn.removeEventListener("click", handleDownload);
+  init();
+};
+
 const init = async () => {
+  actionBtn.style.backgroundColor = "green";
+  returnBtn.style.opacity = 0;
+  previewContainer.style.display = "block";
+  actionBtn.removeEventListener("click", init);
+  actionBtn.addEventListener("click", handleStart);
+  actionBtn.innerText = "Start";
   // getUserMedia 메소드는 객체를 argument로 가진다.
   // async와 await을 사용하려면 regenerator Runtime을 설치해야한다.
   stream = await navigator.mediaDevices.getUserMedia({
     audio: false,
-    video: { width: 400, height: 400 },
+    video: { width: 640, height: 360 },
   });
   video.srcObject = stream;
   video.play();
 };
 
-init();
-
-actionBtn.addEventListener("click", handleStart);
+actionBtn.addEventListener("click", init);
