@@ -59,9 +59,9 @@ export const postEditProfile = async (req, res) => {
   }
 
   await User.findByIdAndUpdate(_id, {
-    username,
-    name,
-    email,
+    username: username.trim(),
+    name: name.trim(),
+    email: email.trim(),
     avatarUrl: file ? file.path : req.session.user.avatarUrl,
   });
   const updatedUser = await User.findById(_id);

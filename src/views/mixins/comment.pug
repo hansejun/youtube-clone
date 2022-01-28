@@ -1,0 +1,16 @@
+mixin comment(comment)
+  a(href="")
+    div
+      img(src="/"+`${loggedInUser.avatarUrl}`).avatarImg
+  div.comment-body
+    div.comment-body__user
+      span.comment-body__user-owner=comment.owner.name
+      span.comment-body__user-createdAt=comment.createdAt
+    div.comment-body__text
+      p=comment.text
+    div.comment-body__icons
+      i.far.fa-thumbs-up
+      span 12
+      i.far.fa-thumbs-down
+      i.fas.fa-heart 
+      span 답글

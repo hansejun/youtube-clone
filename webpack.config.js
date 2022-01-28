@@ -8,6 +8,7 @@ module.exports = {
     main: BASE_JS + "main.js",
     videoPlayer: BASE_JS + "videoPlayer.js",
     recorder: BASE_JS + "recorder.js",
+    commentSection: BASE_JS + "commentSection.js",
   },
   plugins: [
     new MiniCssExtractPlugin({

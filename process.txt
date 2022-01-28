@@ -29,7 +29,7 @@
 [v] 기본이미지 구현
 [v] 기본 폰트 구현 google-font roboto
 [v] video player custom
-[] 코멘트창 구현 
+[] 코멘트창 구현 / enter 시 cols ++ 시킬것
 [] 에러메시지 구현
 
 home

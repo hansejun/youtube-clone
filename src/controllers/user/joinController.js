@@ -34,10 +34,10 @@ export const postJoin = async (req, res) => {
   }
   try {
     await User.create({
-      username,
-      password,
-      email,
-      name,
+      username: username.trim(),
+      password: password.trim(),
+      email: email.trim(),
+      name: name.trim(),
     });
     return res.redirect("/login");
   } catch (e) {

@@ -1,5 +1,6 @@
 import Video from "../models/Video";
 import User from "../models/User";
+import Comment from "../models/Comment";
 
 export const home = async (req, res) => {
   const videos = await Video.find({})
@@ -10,7 +11,14 @@ export const home = async (req, res) => {
 
 export const watch = async (req, res) => {
   const { id } = req.params;
-  const video = await Video.findById(id).populate("owner");
+  const video = await Video.findById(id)
+    .populate("owner")
+    .populate({
+      path: "comments",
+      populate: {
+        path: "owner",
+      },
+    });
   const videos = await Video.find({})
     .sort({ createdAt: "desc" })
     .populate("owner");
@@ -97,5 +105,25 @@ export const registerView = async (req, res) => {
   }
   video.meta.views += 1;
   await video.save();
+  return res.sendStatus(200);
+};
+
+export const addComment = async (req, res) => {
+  const userId = req.session.user._id;
+  const { id } = req.params;
+  const { text } = req.body;
+
+  const video = await Video.findById(id).populate("owner").populate("comments");
+  const comment = await Comment.create({
+    owner: userId,
+    video: id,
+    text,
+  });
+  const user = await User.findById(userId);
+  user.comments.push(comment._id);
+  video.comments.push(comment._id);
+  await user.save();
+  video.save();
+  req.session.user = user;
   return res.sendStatus(200);
 };

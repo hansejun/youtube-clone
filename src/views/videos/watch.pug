@@ -1,12 +1,16 @@
 extends ../base 
 include ../mixins/video-list
+include ../mixins/comment
 
 block content
   div.watch-main
     div.watch-blank
     div.watch
       div.watch-container(data-id=video._id)
-        video(src="/"+video.fileUrl)
+        div.watch-video
+          video(src="/"+video.fileUrl)
+          div.watch-video__icons
+            i.fas.fa-play
         div#watchControls.watch-controls
           div.watchControls-timeline 
             input(type="range",step="1",value="0",min="0")#timeline.watchControls-timeline__current
@@ -69,7 +73,22 @@ block content
             span 구독
         div.watch-owner__description
           p #{video.content}
-      div.watch-comment
+      div.watch-comment__add(data-videoId=video._id)
+        if !loggedInUser.avatarUrl.startsWith("h")
+          img(src="/"+`${loggedInUser.avatarUrl}`).avatarImg
+        else
+          img(src=loggedInUser.avatarUrl).avatarImg
+        form(method="POST")
+          textarea(cols="30",rows="1",placeholder="공개 댓글 추가...")
+          div.watch-comment__btns
+            div#cancelBtn
+              span 취소
+            div#submitBtn
+              span 댓글
+      div.watch-comments
+        each comment in video.comments.reverse()
+          div.watch-comments__mixins 
+            +comment(comment)
     div.watch-sideBar
       each video in videos
         +videoList(video)
@@ -81,3 +100,4 @@ block content
       a(href=`/videos/${video._id}/delete`) Delete Video &rarr;
 block scripts 
   script(src="/assets/js/videoPlayer.js")
+  script(src="/assets/js/commentSection.js")

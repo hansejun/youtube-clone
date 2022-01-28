@@ -11,19 +11,30 @@ const screenBtn = document.getElementById("fullScreen");
 const screenBtnIcon = screenBtn.querySelector("i");
 const timeline = document.getElementById("timeline");
 const container = document.querySelector(".watch-container");
+const textarea = document.querySelector(".watch-comment__add form textarea");
+const playerIconBtn = document.querySelector(".watch-video__icons");
+const playerIcon = playerIconBtn.querySelector("i");
 
 let volumeValue = 0.5;
 video.volume = volumeValue;
 let controlsTimeout = null;
 let controlsMovementTimeout = null;
 
+const removeClassList = () => {
+  playerIconBtn.classList.remove("fadeOut");
+};
+
 const handlePlayClick = () => {
   if (video.paused) {
     video.play();
+    playerIconBtn.classList.add("fadeOut");
   } else {
     video.pause();
+    playerIconBtn.classList.add("fadeOut");
   }
-  playBtnIcon.className = video.paused ? "fas fa-play" : "fas fa-stop";
+  playBtnIcon.className = video.paused ? "fas fa-play" : "fas fa-pause";
+  playerIcon.className = video.paused ? "fas fa-pause" : "fas fa-play";
+  setTimeout(removeClassList, 500);
 };
 
 const handleMuteClick = () => {
@@ -124,9 +135,6 @@ const handleKeyDown = (event) => {
   if (key === "ArrowLeft") {
     handleTimeMinus(5);
   }
-  if (key === "Enter") {
-    handleFullScreen();
-  }
 };
 
 const handleEnded = () => {
@@ -134,6 +142,13 @@ const handleEnded = () => {
   fetch(`/api/videos/${id}/view`, {
     method: "POST",
   });
+};
+
+const handleCancelKeyDown = () => {
+  window.removeEventListener("keydown", handleKeyDown);
+};
+const handlePlayKeyDown = () => {
+  window.addEventListener("keydown", handleKeyDown);
 };
 
 playBtn.addEventListener("click", handlePlayClick);
@@ -145,6 +160,8 @@ timeline.addEventListener("input", handelTimelineChange);
 screenBtn.addEventListener("click", handleFullScreen);
 container.addEventListener("mousemove", handleMouseMove);
 container.addEventListener("mouseleave", handleMouseLeave);
-container.addEventListener("click", handlePlayClick);
+video.addEventListener("click", handlePlayClick);
 window.addEventListener("keydown", handleKeyDown);
+textarea.addEventListener("focus", handleCancelKeyDown);
+textarea.addEventListener("blur", handlePlayKeyDown);
 video.addEventListener("ended", handleEnded);

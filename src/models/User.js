@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
   social: { type: String },
   avatarUrl: { type: String, default: "uploads/avatars/basic" },
   videos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }],
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 });
 
 // pre는 첫번째 파라미터로 설정된 event가 발생하기 전에 callback 함수를 실행시킨다.

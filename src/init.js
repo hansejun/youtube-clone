@@ -3,6 +3,7 @@ import app from "./server.js";
 import "./db";
 import "./models/Video";
 import "./models/User";
+import "./models/Comment";
 
 const PORT = 7070;
 
