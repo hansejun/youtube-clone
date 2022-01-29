@@ -14,10 +14,19 @@
     .header-logo {
       display: flex;
       align-items: center;
-
+      position: relative;
+      div {
+        width: 10px;
+        height: 10px;
+        background-color: white;
+        position: absolute;
+        z-index: 0;
+        left: 11px;
+      }
       i.fab.fa-youtube {
         font-size: 30px;
         color: red;
+        z-index: 1;
       }
       span {
         font-size: 20px;
@@ -53,7 +62,7 @@
       justify-content: space-between;
       align-items: center;
       i {
-        font-size: 20px;
+        font-size: 17px;
       }
       .header-nav__options-profile {
         height: 100%;
@@ -71,6 +80,7 @@
         justify-content: center;
         align-items: center;
         border-radius: 7px;
+        font-size: 15px;
         a {
           color: #383838;
           font-weight: 700;

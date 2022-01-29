@@ -82,7 +82,6 @@ export const finishGitLogin = async (req, res) => {
         },
       })
     ).json();
-    console.log("emaildata", emailData);
     const emailObj = emailData.find(
       (email) => email.primary === true && email.verified === true
     );
@@ -104,7 +103,6 @@ export const finishGitLogin = async (req, res) => {
           socialOnly: true,
           social: "GITHUB",
           email: emailObj.email,
-          avatarUrl: userData.avatar_Url,
         });
       } catch (e) {
         console.log("계정 생성 에러", e);
@@ -180,7 +178,6 @@ export const finishKakaoLogin = async (req, res) => {
           name: userData.properties.nickname,
           socialOnly: true,
           social: "KAKAO",
-          avatarUrl: userData.properties.profile_image,
         });
       } catch (e) {
         console.log("계정생성 실패", e);
@@ -254,7 +251,6 @@ export const finishNaverLogin = async (req, res) => {
           name: userData.response.name,
           socialOnly: true,
           social: "NAVER",
-          avatarUrl: userData.response.profile_image,
         });
       } catch (e) {
         console.log(e);

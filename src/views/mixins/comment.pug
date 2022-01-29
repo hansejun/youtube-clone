@@ -1,7 +1,7 @@
 mixin comment(comment)
   a(href="")
     div
-      img(src="/"+`${loggedInUser.avatarUrl}`).avatarImg
+      img(src="/"+`${comment.owner.avatarUrl}`).avatarImg
   div.comment-body
     div.comment-body__user
       span.comment-body__user-owner=comment.owner.name
@@ -13,4 +13,7 @@ mixin comment(comment)
       span 12
       i.far.fa-thumbs-down
       i.fas.fa-heart 
-      span 답글
+      span.comment-body__icons-function 답글
+      if comment.owner._id == loggedInUser._id
+        span.comment-body__icons-function.comment-body__icons-change 수정
+        span.comment-body__icons-function.comment-body__icons-delete 삭제

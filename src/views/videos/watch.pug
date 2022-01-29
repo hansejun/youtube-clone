@@ -74,21 +74,19 @@ block content
         div.watch-owner__description
           p #{video.content}
       div.watch-comment__add(data-videoId=video._id)
-        if !loggedInUser.avatarUrl.startsWith("h")
+        if loggedIn
           img(src="/"+`${loggedInUser.avatarUrl}`).avatarImg
-        else
-          img(src=loggedInUser.avatarUrl).avatarImg
-        form(method="POST")
-          textarea(cols="30",rows="1",placeholder="공개 댓글 추가...")
-          div.watch-comment__btns
-            div#cancelBtn
-              span 취소
-            div#submitBtn
-              span 댓글
+          form(method="POST").watch-comment__add-form
+            textarea(cols="30",rows="1",placeholder="공개 댓글 추가...")
+            div.watch-comment__btns
+              div#cancelBtn
+                span 취소
+              div#submitBtn
+                span 댓글
       div.watch-comments
         each comment in video.comments.reverse()
-          div.watch-comments__mixins 
-            +comment(comment)
+          div.watch-comments__mixins(data-commentId=comment._id) 
+            +comment(comment) 
     div.watch-sideBar
       each video in videos
         +videoList(video)

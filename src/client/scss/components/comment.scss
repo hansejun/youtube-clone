@@ -36,6 +36,15 @@
         font-size: 11px;
         color: rgba(255, 255, 255, 0.4);
       }
+      .comment-body__icons-function {
+        cursor: pointer;
+        padding: 3px 5px;
+        border-radius: 3px;
+        &:hover {
+          background-color: #4da3f9;
+          color: #121212;
+        }
+      }
       .fas.fa-heart {
         margin: 0px 15px 0px 12px;
         color: red;

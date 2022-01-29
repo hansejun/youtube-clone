@@ -100,44 +100,45 @@
     margin: 20px 0px;
     display: grid;
     grid-template-columns: 50px 1fr;
-    form {
-      textarea {
-        width: 100%;
-        padding: 4px 0px;
-        background-color: $bg;
-        border: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-        outline: none;
-        resize: none;
-        color: white;
-        &:focus {
-          border-bottom: 2px solid white;
-        }
-      }
-      .watch-comment__btns {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 5px;
-        width: 100%;
-        div {
-          width: 65px;
-          height: 35px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border-radius: 5px;
-          font-size: 13px;
-          margin-left: 3px;
-          cursor: pointer;
-        }
-        div:first-child {
-          color: rgba(255, 255, 255, 0.7);
-        }
-        div:last-child {
-          color: rgba(255, 255, 255, 0.4);
-          background-color: #2b2b2b;
-        }
-      }
+  }
+}
+
+.watch-comment__add-form {
+  textarea {
+    width: 100%;
+    padding: 4px 0px;
+    background-color: $bg;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    outline: none;
+    resize: none;
+    color: white;
+    &:focus {
+      border-bottom: 2px solid white;
+    }
+  }
+  .watch-comment__btns {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px;
+    width: 100%;
+    div {
+      width: 65px;
+      height: 35px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+      font-size: 13px;
+      margin-left: 3px;
+      cursor: pointer;
+    }
+    div:first-child {
+      color: rgba(255, 255, 255, 0.7);
+    }
+    div:last-child {
+      color: rgba(255, 255, 255, 0.4);
+      background-color: #2b2b2b;
     }
   }
 }
