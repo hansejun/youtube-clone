@@ -9,6 +9,8 @@ const deleteBtns = document.querySelectorAll(".comment-body__icons-delete");
 
 let commentId;
 let textBody;
+let parentElement;
+let scroll;
 
 const addComment = (text, id, user) => {
   const commentContainer = document.querySelector(".watch-comments");
@@ -120,17 +122,23 @@ const handleCancel = () => {
   textarea.value = "";
 };
 
+// 수정창에서의 취소
+const handleChangeCancel = () => {
+  handleBack();
+};
+
 // 댓글의 수정 버튼을 눌렀을 때 발생하는 이벤트
 const handleChangeComment = (e) => {
   submitBtn.removeEventListener("click", handleSubmit);
   submitBtn.addEventListener("click", handleChangeSubmit);
   cancelBtn.removeEventListener("click", handleCancel);
-  //cancelBtn.addEventListener("click", handleChangeCancel);
+  cancelBtn.addEventListener("click", handleChangeCancel);
 
   textarea.focus();
   submitBtn.innerText = "수정";
 
-  const parentElement = e.target.parentElement.parentElement.parentElement;
+  parentElement = e.target.parentElement.parentElement.parentElement;
+
   commentId = parentElement.dataset.commentid;
 
   textBody = parentElement.querySelector(".comment-body__text p");
@@ -146,6 +154,23 @@ const handleChangeSubmit = () => {
     body: JSON.stringify({ text }),
   });
   textBody.innerText = text;
+  handleBack();
+};
+// 수정창을 클릭하고 다시 원상태로 돌아가는 메소드
+const handleBack = () => {
+  submitBtn.removeEventListener("click", handleChangeSubmit);
+  submitBtn.addEventListener("click", handleSubmit);
+
+  cancelBtn.removeEventListener("click", handleChangeCancel);
+  cancelBtn.addEventListener("click", handleCancel);
+  submitBtn.innerText = "댓글";
+  textarea.value = "";
+
+  scroll =
+    parentElement.getBoundingClientRect().top -
+    textarea.getBoundingClientRect().top;
+
+  window.scrollBy(0, scroll);
 };
 
 textarea.addEventListener("blur", handleBlurColorChange);
