@@ -17,7 +17,7 @@ const addComment = (text, id, user) => {
 
   const commentMixin = document.createElement("div");
   commentMixin.className = "watch-comments__mixins";
-  commentMixin.dataset = "comment._id";
+  commentMixin.dataset.commentid = id;
 
   const a = document.createElement("a");
   const avatarDiv = document.createElement("div");
@@ -85,6 +85,9 @@ const addComment = (text, id, user) => {
   );
   commentMixin.append(a, commentBodyDiv);
   commentContainer.prepend(commentMixin);
+
+  chagedBtn.addEventListener("click", handleChangeComment);
+  deletedBtn.addEventListener("click", handleDelete);
 };
 
 //-------------------------------------------------------------
@@ -173,6 +176,20 @@ const handleBack = () => {
   window.scrollBy(0, scroll);
 };
 
+// 코멘트 삭제 메소드
+const handleDelete = async (e) => {
+  parentElement = e.target.parentElement.parentElement.parentElement;
+  commentId = parentElement.dataset.commentid;
+  const response = await fetch(`/api/comments/${commentId}/delete`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+  });
+  if (response.status === 200) {
+    const watchCommentsContainer = document.querySelector(".watch-comments");
+    watchCommentsContainer.removeChild(parentElement);
+  }
+};
+
 textarea.addEventListener("blur", handleBlurColorChange);
 textarea.addEventListener("focus", handleFocusColorChange);
 submitBtn.addEventListener("click", handleSubmit);
@@ -180,5 +197,6 @@ cancelBtn.addEventListener("click", handleCancel);
 if (deleteBtns && changeBtns) {
   for (i = 0; i < changeBtns.length; i++) {
     changeBtns[i].addEventListener("click", handleChangeComment);
+    deleteBtns[i].addEventListener("click", handleDelete);
   }
 }
