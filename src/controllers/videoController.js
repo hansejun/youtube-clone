@@ -90,6 +90,11 @@ export const deleteVideo = async (req, res) => {
   const {_id} = req.session.user;
   const video = await Video.findById(id).populate("comments").populate("owner");
   //const user = await User.findById(video.owner._id);
+
+  if(String(_id) !== String(video.owner._id)){
+    return res.status(400).redirect("/");
+  }
+
   let comments = [...video.comments];
   let userOwners = [];
   let userComments = [];
@@ -171,6 +176,7 @@ export const changeComment = async (req, res) => {
   });
   return res.sendStatus(200);
 };
+
 
 export const deleteComment = async (req, res) => {
   const { id } = req.params;
