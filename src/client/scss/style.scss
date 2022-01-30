@@ -9,6 +9,7 @@
 @import "./components/form.scss";
 @import "./components/video-controls.scss";
 @import "./components/comment.scss";
+@import "./components/message.scss";
 // screens
 @import "./screens/home.scss";
 @import "./screens/watch.scss";
@@ -26,4 +27,6 @@ body {
     color: white;
     text-decoration: none;
   }
+  min-height: 100vh;
+  position: relative;
 }

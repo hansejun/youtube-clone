@@ -8,6 +8,7 @@ export const localsMiddleware = (req, res, next) => {
 
 export const onlyLoggedIn = (req, res, next) => {
   if (!req.session.loggedIn) {
+    req.flash("error","Please log in.")
     return res.redirect("/");
   }
   next();
@@ -15,6 +16,7 @@ export const onlyLoggedIn = (req, res, next) => {
 
 export const onlyLoggedOut = (req, res, next) => {
   if (req.session.loggedIn) {
+    req.flash("error","Only non-members can use it.")
     return res.redirect("/");
   }
   next();

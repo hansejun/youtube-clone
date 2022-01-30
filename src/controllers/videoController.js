@@ -1,7 +1,6 @@
 import Video from "../models/Video";
 import User from "../models/User";
 import Comment from "../models/Comment";
-import { async } from "regenerator-runtime";
 
 export const home = async (req, res) => {
   const videos = await Video.find({})
@@ -24,6 +23,7 @@ export const watch = async (req, res) => {
     .sort({ createdAt: "desc" })
     .populate("owner");
   if (!video) {
+    req.flash("error","Failed to bring video information.")
     return res.status(400).redirect("/");
   }
   return res.render("videos/watch", { pageTitle: video.title, video, videos });
@@ -52,6 +52,7 @@ export const postUploadVideo = async (req, res) => {
     req.session.user = user;
     return res.redirect("/");
   } catch (e) {
+    req.flash("error","Video upload failed.")
     return res.status(404).redirect("/videos/upload");
   }
 };
@@ -62,6 +63,7 @@ export const getEditVideo = async (req, res) => {
   const newHashtags = video.hashtags.map((hashtag) => hashtag.substr(1).trim());
   console.log(video.owner);
   if (!video) {
+    req.flash("error","Failed to bring video information.")
     return res.status(400).redirect(`/videos/${id}`);
   }
   return res.render("videos/edit-video", {
@@ -115,24 +117,30 @@ export const addComment = async (req, res) => {
   const { text } = req.body;
 
   const video = await Video.findById(id).populate("owner").populate("comments");
-  const comment = await Comment.create({
-    owner: userId,
-    video: id,
-    text,
-  });
-  const user = await User.findById(userId);
-  user.comments.push(comment._id);
-  video.comments.push(comment._id);
-  await user.save();
-  video.save();
-  req.session.user = user;
-  return res.status(200).json({ newCommentId: comment._id, user });
+  try{
+    const comment = await Comment.create({
+      owner: userId,
+      video: id,
+      text,
+    });
+    const user = await User.findById(userId);
+    user.comments.push(comment._id);
+    video.comments.push(comment._id);
+    await user.save();
+    video.save();
+    req.session.user = user;
+    return res.status(200).json({ newCommentId: comment._id, user });
+  }catch(e){
+    req.flash("error","Failed to create a comment.")
+    return res.sendStatus(400);
+  }
+  
 };
 
 export const changeComment = async (req, res) => {
   const { id } = req.params;
   const { text } = req.body;
-  const comment = await Comment.findByIdAndUpdate(id, {
+  await Comment.findByIdAndUpdate(id, {
     text,
   });
   return res.sendStatus(200);
@@ -148,6 +156,7 @@ export const deleteComment = async (req, res) => {
   const video = await Video.findById(comment.video._id);
 
   if (!comment || !user || !video) {
+    req.flash("error","Failed to delete the comment.")
     return res.sendStatus(400);
   }
   const userComments = user.comments.filter(

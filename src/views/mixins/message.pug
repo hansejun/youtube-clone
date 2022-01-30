@@ -1,0 +1,7 @@
+mixin message(kind,text)
+    div.message(class=kind)
+        div.message-nav
+            div.message-nav__exit
+                i.fas.fa-times
+        dis.message-text
+            span=text

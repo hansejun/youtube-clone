@@ -1,8 +1,8 @@
 import User from "../../models/User";
 import bcrypt from "bcrypt";
 import fetch from "node-fetch";
-import qs from "qs";
-import { reset } from "nodemon";
+
+let info = false;
 
 export const getLogin = (req, res) => {
   return res.render("users/login", { pageTitle: "Login Page" });
@@ -13,18 +13,18 @@ export const postLogin = async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username });
   // 계정이 존재하는지 확인
-  console.log(user);
   if (!user) {
+    req.flash("error","Check your ID.")
     return res
       .status(400)
-      .render("users/login", { pageTitle, errorMessage: "Check your ID" });
+      .render("users/login", { pageTitle,});
   }
   // 비밀번호 확인 맞으면 true 아니면 false 반환
   const checkPassword = await bcrypt.compare(password, user.password);
   if (!checkPassword) {
+    req.flash("error","Check your Password.")
     return res.status(400).render("users/login", {
       pageTitle,
-      errorMessage: "Check your Password",
     });
   }
   req.session.loggedIn = true;
@@ -82,16 +82,18 @@ export const finishGitLogin = async (req, res) => {
         },
       })
     ).json();
+
     const emailObj = emailData.find(
       (email) => email.primary === true && email.verified === true
     );
     if (!emailObj) {
+      req.flash("error","Failed to bring email information.")
       return res.redirect("/");
     }
     let user = await User.findOne({ email: emailObj.email });
     if (user) {
       if (user.social !== "GITHUB") {
-        console.log("This account already exists.");
+        req.flash("error","This account already exists.")
         return res.status(400).redirect("/");
       }
     } else {
@@ -104,15 +106,21 @@ export const finishGitLogin = async (req, res) => {
           social: "GITHUB",
           email: emailObj.email,
         });
+        info = "Membership registration was successful.";
       } catch (e) {
-        console.log("계정 생성 에러", e);
+        req.flash("error","Failed to create an account.")
+        console.log(e);
         return res.status(400).redirect("/");
       }
+    }
+    if(info){
+      req.flash("info",info);
     }
     req.session.loggedIn = true;
     req.session.user = user;
     return res.redirect("/");
   } else {
+    req.flash("error","Login failed.")
     return res.status(400).redirect("/");
   }
 };
@@ -159,14 +167,14 @@ export const finishKakaoLogin = async (req, res) => {
         },
       })
     ).json();
-    console.log(userData);
     if (!userData) {
+      req.flash("error","Failed to bring user information.")
       return res.status(400).redirect("/login");
     }
     let user = await User.findOne({ email: userData.kakao_account.email });
     if (user) {
       if (user.social !== "KAKAO") {
-        console.log("This account already exists.");
+        req.flash("error","This account already exists.")
         return res.status(400).redirect("/");
       }
     } else {
@@ -179,15 +187,21 @@ export const finishKakaoLogin = async (req, res) => {
           socialOnly: true,
           social: "KAKAO",
         });
+        info = "Membership registration was successful.";
       } catch (e) {
-        console.log("계정생성 실패", e);
+        req.flash("error","Failed to create an account.")
+        console.log(e);
         return res.status(400).redirect("/login");
       }
+    }
+    if(info){
+      req.flash("info",info);
     }
     req.session.loggedIn = true;
     req.session.user = user;
     return res.redirect("/");
   } else {
+    req.flash("error","Login failed.")
     return res.status(400).redirect("/login");
   }
 };
@@ -226,6 +240,7 @@ export const finishNaverLogin = async (req, res) => {
       },
     })
   ).json();
+
   if ("access_token" in tokenRequest) {
     const { access_token } = tokenRequest;
     const apiUrl = "https://openapi.naver.com/v1/nid/me";
@@ -239,7 +254,7 @@ export const finishNaverLogin = async (req, res) => {
     let user = await User.findOne({ email: userData.response.email });
     if (user) {
       if (user.social !== "NAVER") {
-        console.log("This account already exists.");
+        req.flash("error","This account already exists.")
         return res.status(400).redirect("/");
       }
     } else {
@@ -252,16 +267,21 @@ export const finishNaverLogin = async (req, res) => {
           socialOnly: true,
           social: "NAVER",
         });
+        info = "Membership registration was successful.";
       } catch (e) {
         console.log(e);
+        req.flash("error","Failed to create an account.")
         return res.status(400).redirect("/");
       }
     }
-
+    if(info){
+      req.flash("info",info);
+    }
     req.session.user = user;
     req.session.loggedIn = true;
     return res.redirect("/");
   } else {
+    req.flash("error","Login failed.")
     return res.status(400).redirect("/");
   }
 };

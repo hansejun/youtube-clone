@@ -7,6 +7,8 @@ import globalRouter from "./routers/globalRouter";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import apiRouter from "./routers/apiRouter";
+import flash from "express-flash";
+
 const app = express();
 const logger = morgan("dev");
 
@@ -25,7 +27,6 @@ app.use((req, res, next) => {
 });
 app.use("/uploads", express.static("uploads"));
 app.use("/assets", express.static("assets"));
-
 // session을 MongoDB에 저장
 app.use(
   session({
@@ -37,6 +38,7 @@ app.use(
     }),
   })
 );
+app.use(flash());
 app.use(localsMiddleware);
 app.use("/api", apiRouter);
 app.use("/", globalRouter);
