@@ -135,6 +135,9 @@ const handleKeyDown = (event) => {
   if (key === "ArrowLeft") {
     handleTimeMinus(5);
   }
+  if(event.keyCode == 32){
+    event.preventDefault();
+  }
 };
 
 const handleEnded = () => {

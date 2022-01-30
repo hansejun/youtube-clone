@@ -1,6 +1,6 @@
 mongod --config /opt/homebrew/etc/mongod.conf --fork
 
-sudo apt-get install mongodb
+sudo service mongodb start
 
 1. db.js 생성
 

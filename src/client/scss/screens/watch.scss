@@ -37,7 +37,7 @@
   .watch-data {
     width: 100%;
     margin-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 0px;
     border-bottom: 1px solid $line;
     .watch-data__title {
       font-size: 16px;
@@ -52,13 +52,54 @@
         color: rgba(255, 255, 255, 0.6);
       }
       .watch-data__meta-icons {
-        i {
-          font-size: 14px;
-          margin-left: 1.3vw;
+        display: flex;
+        align-items: center;
+        a:not(.watch-data__meta-icons__list-box__content) {
+          i {
+            font-size: 14px;
+            margin-left: 1.3vw;
+          }
+          span {
+            margin-left: 8px;
+            font-size: 14px;
+          }
         }
-        span {
-          margin-left: 8px;
-          font-size: 14px;
+        .watch-data__meta-icons__list {
+          position: relative;
+          .fas.fa-ellipsis-h {
+            margin-left: 0.8vw;
+            padding: 10px;
+            border-radius: 50%;
+            &:hover {
+              background-color: #383838;
+            }
+          }
+          .watch-data__meta-icons__list-box {
+            position: absolute;
+            top: 35px;
+            left: 20px;
+            width: 130px;
+            height: 60px;
+            font-size: 14px;
+            background-color: #1f1f1f;
+            display: flex;
+            flex-direction: column;
+            border-radius: 5px;
+            padding: 6px 0px;
+            .watch-data__meta-icons__list-box__content {
+              height: 50%;
+              display: grid;
+              grid-template-columns: 1.3fr 4fr;
+              cursor: pointer;
+              &:hover {
+                background-color: #383838;
+              }
+              align-items: center;
+              i {
+                justify-self: center;
+              }
+            }
+          }
         }
       }
     }

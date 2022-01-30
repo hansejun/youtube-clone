@@ -58,8 +58,15 @@ block content
             a(href="")
               i.far.fa-plus-square
               span 저장
-            a(href="")
+            div.watch-data__meta-icons__list
               i.fas.fa-ellipsis-h
+              div.watch-data__meta-icons__list-box
+                a(href=`/videos/${video._id}/edit`).watch-data__meta-icons__list-box__content
+                  i.far.fa-edit
+                  span Edit Video 
+                a(href=`/videos/${video._id}/delete`).watch-data__meta-icons__list-box__content
+                  i.far.fa-trash-alt
+                  span Delete Video 
       div.watch-owner
         div.watch-owner__info
           if !video.owner.avatarUrl.startsWith("h")

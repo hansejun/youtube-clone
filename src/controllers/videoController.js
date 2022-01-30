@@ -87,6 +87,32 @@ export const postEditVideo = async (req, res) => {
 
 export const deleteVideo = async (req, res) => {
   const { id } = req.params;
+  const {_id} = req.session.user;
+  const video = await Video.findById(id).populate("comments").populate("owner");
+  //const user = await User.findById(video.owner._id);
+  let comments = [...video.comments];
+  let userOwners = [];
+  let userComments = [];
+
+  for(let i=0;i<comments.length;i++){ 
+    await Comment.findByIdAndDelete(comments[i]._id);
+    userOwners.push(comments[i].owner);
+    userComments.push(comments[i]._id);
+  }
+ 
+  for(let i=0; i<userOwners.length;i++){ 
+    let user = await User.findById({_id:userOwners[i]});
+    user.comments = user.comments.filter((el) => String(el) !== String(userComments[i])) 
+    await user.save();
+    console.log(user);
+  }
+
+  const userModel = await User.findById(video.owner._id);
+  let newUserVideos = userModel.videos.filter((el)=> String(el) !== String(id));
+  
+  userModel.videos = newUserVideos;
+  await userModel.save();
+  req.session.user = userModel;
   await Video.findByIdAndDelete(id);
   return res.redirect("/");
 };
