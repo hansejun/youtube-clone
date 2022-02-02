@@ -1,0 +1,32 @@
+.sideBar {
+  width: 100%;
+  background-color: #212121;
+  nav ul {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(7, 80px);
+    li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+      a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        i {
+          font-size: 15px;
+          margin-bottom: 10px;
+        }
+        span {
+          font-size: 11px;
+        }
+      }
+    }
+  }
+}

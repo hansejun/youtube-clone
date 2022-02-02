@@ -11,6 +11,7 @@
 @import "./components/comment.scss";
 @import "./components/message.scss";
 @import "./components/search-video.scss";
+@import "./components/sidebar.scss";
 // screens
 @import "./screens/home.scss";
 @import "./screens/watch.scss";
@@ -31,5 +32,14 @@ body {
   }
   min-height: 100vh;
   position: relative;
+  padding-top: 60px;
   padding-bottom: 50px;
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  position: relative;
+
+  .body-main {
+    margin-top: 30px;
+    padding: 0px 20px;
+  }
 }
