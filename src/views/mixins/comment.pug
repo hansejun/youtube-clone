@@ -7,7 +7,7 @@ mixin comment(comment)
       span.comment-body__user-owner=comment.owner.name
       span.comment-body__user-createdAt=comment.createdAt
     div.comment-body__text
-      p=comment.text
+      div=comment.text
     div.comment-body__icons
       i.far.fa-thumbs-up
       span 12

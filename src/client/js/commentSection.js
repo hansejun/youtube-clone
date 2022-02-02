@@ -46,6 +46,7 @@ const addComment = (text, id, user) => {
   commentBodyText.className = "comment.text";
   commentBodyTextDiv.appendChild(commentBodyText);
   commentBodyText.innerText = text;
+  commentBodyText.style.lineHeight = "120%";
 
   const commentBodyIconsDiv = document.createElement("div");
   const commentBodyIconsGood = document.createElement("i");
@@ -190,6 +191,13 @@ const handleDelete = async (e) => {
   }
 };
 
+const handleKeyUp = (e) => {
+  console.log(e.target.scrollHeight);
+  textarea.style.height = "auto"
+  textarea.style.height = `${e.target.scrollHeight}px`;
+}
+
+
 textarea.addEventListener("blur", handleBlurColorChange);
 textarea.addEventListener("focus", handleFocusColorChange);
 submitBtn.addEventListener("click", handleSubmit);
@@ -200,3 +208,4 @@ if (deleteBtns && changeBtns) {
     deleteBtns[i].addEventListener("click", handleDelete);
   }
 }
+textarea.addEventListener("keyup",handleKeyUp);

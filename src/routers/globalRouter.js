@@ -1,5 +1,5 @@
 import express from "express";
-import { home, search } from "../controllers/videoController";
+import { home, search } from "../controllers/video/videoController";
 import { getJoin, postJoin } from "../controllers/user/joinController";
 import {
   logout,

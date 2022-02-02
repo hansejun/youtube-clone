@@ -22,6 +22,10 @@
     .comment-body__text {
       font-size: 13px;
       margin: 10px 0px 15px 0px;
+      div {
+        white-space: pre-wrap;
+        line-height: 120%;
+      }
     }
     .comment-body__icons {
       font-size: 14px;
