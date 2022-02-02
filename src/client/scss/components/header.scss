@@ -45,7 +45,12 @@
         border: 1px solid rgba(255, 255, 255, 0.2);
         padding-left: 10px;
         color: white;
+        &:focus {
+          outline: none;
+          border: 1px solid rgb(81, 128, 255);
+        }
       }
+
       div {
         width: 50px;
         display: flex;

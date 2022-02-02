@@ -1,10 +1,30 @@
 extends base 
 include mixins/video
+include mixins/search-video
 
-block content 
-  form(method="GET")
-    input(type="text",name="keyword",required,placeholder="Enter the keyword")
-    input(type="submit",value="Search")
+block content
+  main.search-main
+    div
+    div.search-body
+      if user
+        div.search-owner
+          div.search-owner-avatar
+            img(src=`/${user.avatarUrl}`)
+          div.search-owner-data
+            h3.search-owner-data__name=user.name
+            span 구독자 11명 • 동영상 #{user.videos.length}개
+            p 안녕하세요 #{user.name} 입니다.
+          div.search-owner-subscribe
+            div.search-owner-subscribe__btn
+              span 구독
+        if userVideos
+          div.search-ownerVideo     
+            h3.search-ownerVideo__recentlyTitle #{user.name}의 최신 동영상
+            each video in userVideos
+              +search-video(video)
+      div.search-videos
+        h2 "#{keyword}"에 대한 검색 결과 #{videos.length}건 
+        each video in videos 
+          +search-video(video)
+    div
   
-  each video in videos
-    +video(video)

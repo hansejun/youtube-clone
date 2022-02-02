@@ -130,13 +130,42 @@ export const deleteVideo = async (req, res) => {
   return res.redirect("/");
 };
 
-export const search = async (req, res) => {
-  const { keyword } = req.query;
+export const getSearch = async(req,res) => {
+  const {keyword} = req.params;
   let videos = [];
-  if (keyword) {
-    videos = await Video.find({ title: { $regex: new RegExp(keyword, "i") } });
+  let user = {};
+  let userVideos = {};
+  if(!keyword){
+    req.flash("error","Error!");
+    return res.status(400).redirect("/")
   }
-  return res.render("search", { pageTitle: "Search Page", videos });
+  videos =await Video.find({ title: { $regex: new RegExp(keyword, "i") } }).populate("owner");
+  if(videos){
+    user = await User.findOne({name: { $regex: new RegExp(keyword, "i") }}).populate({
+      path:"videos",
+      populate:{
+        path:"owner"
+      }
+    });
+    if(user){
+      userVideos = await Video.find({username:user.username}).sort({ createdAt: "desc" }).populate("owner");
+      if(userVideos){
+        userVideos = userVideos.slice(0,2);
+      }
+    }
+  }
+  return res.render("search",{videos,user,userVideos,keyword}); 
+}
+
+
+export const postSearch = async (req, res) => {
+  const { keyword } = req.body;
+  //if (keyword) {
+    //videos = await Video.find({ title: { $regex: new RegExp(keyword, "i") } });
+  //}
+  console.log(keyword);
+  //return res.render("search", { pageTitle: "Search Page", videos });
+  return res.render("search");
 };
 
 

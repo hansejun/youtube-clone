@@ -1,5 +1,5 @@
 import express from "express";
-import { home, search } from "../controllers/video/videoController";
+import { home,getSearch } from "../controllers/video/videoController";
 import { getJoin, postJoin } from "../controllers/user/joinController";
 import {
   logout,
@@ -18,7 +18,7 @@ const globalRouter = express.Router();
 
 globalRouter.route("/").get(home);
 globalRouter.route("/join").all(onlyLoggedOut).get(getJoin).post(postJoin);
-
+globalRouter.route("/search/:keyword").get(getSearch)
 globalRouter.route("/login").all(onlyLoggedOut).get(getLogin).post(postLogin);
 globalRouter.route("/login/git-start").all(onlyLoggedOut).get(startGitLogin);
 globalRouter.route("/login/git-finish").all(onlyLoggedOut).get(finishGitLogin);
@@ -37,5 +37,4 @@ globalRouter
 globalRouter.route("/login/naver-finish").get(finishNaverLogin);
 
 globalRouter.route("/logout").all(onlyLoggedIn).get(logout);
-globalRouter.route("/search").get(search);
 export default globalRouter;

@@ -1,0 +1,11 @@
+mixin search-video(video)
+    a(href=`/videos/${video._id}`).search-videoBox
+        div.search-videoBox__thumbnail
+            img(src=`/${video.thumbUrl}`)
+        div.search-videoBox__content
+            h3=video.title
+            span 조회수 #{video.meta.views}회 • 1일전
+            div.search-videoBox__content-owner
+                img(src=`/${video.owner.avatarUrl}`,width="30",height="30")
+                h4=video.owner.name
+            p=video.content

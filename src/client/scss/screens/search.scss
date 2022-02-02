@@ -1,0 +1,75 @@
+.search-main {
+  display: grid;
+  grid-template-columns: 2.5fr 10fr 2.5fr;
+  .search-body {
+    width: 100%;
+    padding-top: 3vh;
+    .search-owner {
+      width: 100%;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      display: grid;
+      grid-template-columns: 9fr 16fr 2fr;
+      padding: 20px 0px;
+      .search-owner-avatar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+          width: 120px;
+          height: 120px;
+          border-radius: 50%;
+        }
+      }
+      .search-owner-data {
+        display: flex;
+        flex-direction: column;
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.6);
+        font-weight: 500;
+        h3 {
+          margin-top: 15px;
+          font-size: 18px;
+          color: white;
+          font-weight: 400;
+        }
+        span {
+          margin: 10px 0px;
+        }
+      }
+      .search-owner-subscribe {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .search-owner-subscribe__btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: red;
+          width: 60px;
+          height: 30px;
+          border-radius: 3px;
+          font-size: 12px;
+          font-weight: 600;
+          cursor: pointer;
+        }
+      }
+    }
+    .search-ownerVideo {
+      padding: 25px 0px;
+
+      .search-ownerVideo__recentlyTitle {
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 30px;
+      }
+    }
+    .search-videos {
+      padding: 20px 0px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      h2 {
+        margin: 10px 0px;
+      }
+    }
+  }
+}
