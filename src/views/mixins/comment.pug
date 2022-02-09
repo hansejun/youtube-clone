@@ -14,6 +14,7 @@ mixin comment(comment)
       i.far.fa-thumbs-down
       i.fas.fa-heart 
       span.comment-body__icons-function 답글
-      if comment.owner._id == loggedInUser._id
-        span.comment-body__icons-function.comment-body__icons-change 수정
-        span.comment-body__icons-function.comment-body__icons-delete 삭제
+      if loggedIn
+        if comment.owner._id == loggedInUser._id
+          span.comment-body__icons-function.comment-body__icons-change 수정
+          span.comment-body__icons-function.comment-body__icons-delete 삭제

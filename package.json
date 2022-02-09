@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "start": "node build/init.js",
+    "build": "npm run build:server && npm run build:assets",
+    "build:assets": "webpack --mode=production",
+    "build:server": "babel src -d build",
     "dev:server": "nodemon",
     "dev:assets": "webpack --mode=development -w"
   },
@@ -17,7 +21,7 @@
   },
   "homepage": "https://github.com/hansejun/youtube-clone#readme",
   "devDependencies": {
-    "@babel/core": "^7.16.10",
+    "@babel/core": "^7.17.2",
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.10",
     "babel-loader": "^8.2.3",
@@ -32,6 +36,7 @@
     "webpack-cli": "^4.9.1"
   },
   "dependencies": {
+    "@babel/cli": "^7.17.0",
     "@ffmpeg/core": "^0.10.0",
     "@ffmpeg/ffmpeg": "^0.10.1",
     "bcrypt": "^5.0.1",
