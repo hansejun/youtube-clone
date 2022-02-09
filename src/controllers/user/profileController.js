@@ -10,14 +10,12 @@ export const profile = async (req, res) => {
     populate: { path: "owner" },
   });
   if (!user) {
-    req.flash("error","Failed to bring user information.")
+    req.flash("error", "Failed to bring user information.");
     return res.status(400).redirect("/");
   }
-  const avatarOk = user.avatarUrl.startsWith("h");
   return res.render("users/profile", {
     pageTitle: user.username,
     user,
-    avatarOk,
   });
 };
 
@@ -25,9 +23,10 @@ export const getEditProfile = async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(id);
   if (!user) {
-    req.flash("error","Failed to bring user information.")
+    req.flash("error", "Failed to bring user information.");
     return res.status(400).redirect(`/users/${id}`);
   }
+
   return res.render("users/edit-profile", { pageTitle: "Edit Profile", user });
 };
 
@@ -41,7 +40,7 @@ export const postEditProfile = async (req, res) => {
   if (user.username !== username) {
     const checkUsername = await User.exists({ username });
     if (checkUsername) {
-      req.flash("error","Already exists ID.")
+      req.flash("error", "Already exists ID.");
       return res.status(400).render("users/edit-profile", {
         pageTitle,
         user,
@@ -52,7 +51,7 @@ export const postEditProfile = async (req, res) => {
   if (user.email !== email) {
     const checkEmail = await User.exists({ email });
     if (checkEmail) {
-      req.flash("error","Already exists Email.");
+      req.flash("error", "Already exists Email.");
       return res.status(400).render("users/edit-profile", {
         pageTitle,
         user,
@@ -64,7 +63,7 @@ export const postEditProfile = async (req, res) => {
     username: username.trim(),
     name: name.trim(),
     email: email.trim(),
-    avatarUrl: file ? file.path : req.session.user.avatarUrl,
+    avatarUrl: file ? file.location : req.session.user.avatarUrl,
   });
   const updatedUser = await User.findById(_id);
   req.session.user = updatedUser;
@@ -83,13 +82,13 @@ export const postEditPassword = async (req, res) => {
   const checkPassword = await bcrypt.compare(nowPassword, user.password);
   // 현재 비밀번호가 내 계정 비밀번호와 맞는지 확인
   if (!checkPassword) {
-    req.flash("error","The password is not correct.");
+    req.flash("error", "The password is not correct.");
     return res.status(400).render("users/edit-password", {
       pageTitle,
     });
   }
   if (newPassword !== newPassword2) {
-    req.flash("error","Please check out the new password.");
+    req.flash("error", "Please check out the new password.");
     return res.status(400).render("users/edit-password", {
       pageTitle,
     });

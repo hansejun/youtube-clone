@@ -1,4 +1,19 @@
 import multer from "multer";
+import multerS3 from "multer-s3";
+import aws from "aws-sdk";
+
+const s3 = new aws.S3({
+  credentials: {
+    accessKeyId: process.env.AWS_ID,
+    secretAccessKey: process.env.AWS_SECRET,
+  },
+});
+
+const multerUploader = multerS3({
+  s3: s3,
+  bucket: "wetubeclonneee",
+  acl: "public-read",
+});
 
 export const localsMiddleware = (req, res, next) => {
   res.locals.loggedIn = Boolean(req.session.loggedIn);
@@ -8,7 +23,7 @@ export const localsMiddleware = (req, res, next) => {
 
 export const onlyLoggedIn = (req, res, next) => {
   if (!req.session.loggedIn) {
-    req.flash("error","Please log in.")
+    req.flash("error", "Please log in.");
     return res.redirect("/");
   }
   next();
@@ -16,7 +31,7 @@ export const onlyLoggedIn = (req, res, next) => {
 
 export const onlyLoggedOut = (req, res, next) => {
   if (req.session.loggedIn) {
-    req.flash("error","Only non-members can use it.")
+    req.flash("error", "Only non-members can use it.");
     return res.redirect("/");
   }
   next();
@@ -25,8 +40,10 @@ export const onlyLoggedOut = (req, res, next) => {
 export const avatarUpload = multer({
   dest: "uploads/avatars/",
   limits: { fileSize: 30000000 },
+  storage: multerUploader,
 });
 export const videoUpload = multer({
   dest: "uploads/videos/",
   limits: { fileSize: 100000000 },
+  storage: multerUploader,
 });
