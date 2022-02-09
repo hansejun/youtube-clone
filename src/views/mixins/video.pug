@@ -1,12 +1,9 @@
 mixin video(video)
   a(href=`/videos/${video._id}`).video-mixin 
-    img.video-mixin__thumb(src=`/${video.thumbUrl}`)
+    img.video-mixin__thumb(src=`${video.thumbUrl}`)
     div.video-mixin__data
       div.video-mixin__data-avatar
-        if !video.owner.avatarUrl.startsWith("h")
-          img(src="/"+`${video.owner.avatarUrl}` ,width="35",height="35").avatarImg
-        else
-          img(src=video.owner.avatarUrl,width="35",height="35").avatarImg
+        img(src=`${video.owner.avatarUrl}` ,width="35",height="35").avatarImg
       div.video-mixin__data-content
         span.video-mixin__data-content__title=video.title
         div.video-mixin__data-content__meta
