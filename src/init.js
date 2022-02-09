@@ -6,7 +6,7 @@ import "./models/Video";
 import "./models/User";
 import "./models/Comment";
 
-const PORT = 7070;
+const PORT = process.env.PORT || 7070;
 
 app.listen(PORT, () =>
   console.log(`✅ Server listening to ${PORT} port number! `)
