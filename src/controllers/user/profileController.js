@@ -58,7 +58,7 @@ export const postEditProfile = async (req, res) => {
       });
     }
   }
-
+  console.log(file);
   await User.findByIdAndUpdate(_id, {
     username: username.trim(),
     name: name.trim(),

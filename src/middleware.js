@@ -39,11 +39,11 @@ export const onlyLoggedOut = (req, res, next) => {
 
 export const avatarUpload = multer({
   dest: "uploads/avatars/",
-  limits: { fileSize: 30000000 },
+  limits: { fileSize: 3000000 },
   storage: multerUploader,
 });
 export const videoUpload = multer({
   dest: "uploads/videos/",
-  limits: { fileSize: 100000000 },
+  limits: { fileSize: 10000000 },
   storage: multerUploader,
 });
