@@ -1,7 +1,10 @@
 mixin videoList(video)
     a(href=`/videos/${video._id}`).videoList-mixin
+      if isHeroku
         img.videoList-mixin-thumb(src=`${video.thumbUrl}`)
-        div.videoList-mixin__data
-            h3.videoList-mixin__data-title #{video.title}
-            span.videoList-mixin__data-owner #{video.owner.name}
-            span.videoList-mixin__data-meta 조회수 #{video.meta.views}회
+      else
+        img.videoList-mixin-thumb(src=`/${video.thumbUrl}`)
+      div.videoList-mixin__data
+          h3.videoList-mixin__data-title #{video.title}
+          span.videoList-mixin__data-owner #{video.owner.name}
+          span.videoList-mixin__data-meta 조회수 #{video.meta.views}회

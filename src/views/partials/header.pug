@@ -27,7 +27,10 @@ header.header
               i.fas.fa-sign-out-alt
           li
             a(href=`/users/${loggedInUser._id}`).header-nav__options-profile
-              img(src=loggedInUser.avatarUrl).avatarImg
+              if isHeroku
+                img(src=loggedInUser.avatarUrl).avatarImg
+              else 
+                img(src=`/${loggedInUser.avatarUrl}`).avatarImg
        
         else 
           li.header-nav__options-login

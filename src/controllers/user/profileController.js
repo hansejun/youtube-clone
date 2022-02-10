@@ -58,12 +58,17 @@ export const postEditProfile = async (req, res) => {
       });
     }
   }
-  console.log(file);
+  const isHeroku = process.env.NODE_ENV === "production";
+
   await User.findByIdAndUpdate(_id, {
     username: username.trim(),
     name: name.trim(),
     email: email.trim(),
-    avatarUrl: file ? file.location : req.session.user.avatarUrl,
+    avatarUrl: file
+      ? isHeroku
+        ? file.location
+        : file.path
+      : req.session.user.avatarUrl,
   });
   const updatedUser = await User.findById(_id);
   req.session.user = updatedUser;

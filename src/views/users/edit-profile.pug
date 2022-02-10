@@ -1,13 +1,14 @@
 extends ../base 
 
-block content 
-  form(method="POST",enctype="multipart/form-data")
-    label(label="avatar") 프로필 사진
-    input(type="file",name="avatar",id="avatar",accept="image/*")
-    span ID
-    input(type="text",name="username",value=user.username,required)
-    span Name
-    input(type="text",name="name",value=user.name,required)
-    span Email
-    input(type="email",name="email",value=user.email,required)
-    input(type="submit",value="Edit Profile")
+block content
+  main.main.upload-main.editProfile-main
+    form(method="POST",enctype="multipart/form-data").upload-form.form
+      span 프로필 사진
+      input(type="file",name="avatar",id="avatar",accept="image/*")
+      span ID
+      input(type="text",name="username",value=user.username,required)
+      span Name
+      input(type="text",name="name",value=user.name,required)
+      span Email
+      input(type="email",name="email",value=user.email,required)
+      input(type="submit",value="Edit Profile").form-submit

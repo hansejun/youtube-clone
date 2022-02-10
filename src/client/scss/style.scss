@@ -33,7 +33,6 @@ body {
   min-height: 100vh;
   position: relative;
   padding-top: 60px;
-  padding-bottom: 50px;
   display: grid;
   grid-template-columns: 80px 1fr;
   position: relative;
@@ -41,5 +40,6 @@ body {
   .body-main {
     margin-top: 30px;
     padding: 0px 20px;
+    padding-bottom: 50px;
   }
 }
