@@ -135,7 +135,7 @@ const handleKeyDown = (event) => {
   if (key === "ArrowLeft") {
     handleTimeMinus(5);
   }
-  if(event.keyCode == 32){
+  if (event.keyCode == 32) {
     event.preventDefault();
   }
 };
@@ -157,7 +157,7 @@ const handlePlayKeyDown = () => {
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);
-video.addEventListener("loadedmetadata", handleLoadedMetaData);
+video.addEventListener("canplay", handleLoadedMetaData);
 video.addEventListener("timeupdate", handleTimeUpdate);
 timeline.addEventListener("input", handelTimelineChange);
 screenBtn.addEventListener("click", handleFullScreen);
@@ -168,3 +168,5 @@ window.addEventListener("keydown", handleKeyDown);
 textarea.addEventListener("focus", handleCancelKeyDown);
 textarea.addEventListener("blur", handlePlayKeyDown);
 video.addEventListener("ended", handleEnded);
+
+handleLoadedMetaData();
