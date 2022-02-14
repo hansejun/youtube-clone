@@ -8,6 +8,7 @@ import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import apiRouter from "./routers/apiRouter";
 import flash from "express-flash";
+import cors from "cors";
 
 const app = express();
 const logger = morgan("dev");
@@ -26,6 +27,12 @@ app.use(express.json());
 //res.header("Cross-Origin-Opener-Policy", "same-origin");
 //next();
 //});
+const corsOptions = {
+  origin: "https://wetube-korea.herokuapp.com",
+  credentials: true,
+};
+app.use(cors(corsOptions));
+
 app.use("/uploads", express.static("uploads"));
 app.use("/assets", express.static("assets"));
 // session을 MongoDB에 저장
