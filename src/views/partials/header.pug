@@ -28,7 +28,7 @@ header.header
           li
             a(href=`/users/${loggedInUser._id}`).header-nav__options-profile
               if isHeroku
-                img(src=loggedInUser.avatarUrl).avatarImg
+                img(src=loggedInUser.avatarUrl,crossorigin="use-credentials").avatarImg
               else 
                 img(src=`/${loggedInUser.avatarUrl}`).avatarImg
        
