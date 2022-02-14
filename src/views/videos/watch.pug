@@ -85,7 +85,7 @@ block content
           p #{video.content}
       div.watch-comment__add(data-videoId=video._id)
         if loggedIn
-          img(src="/"+`${loggedInUser.avatarUrl}`).avatarImg
+          img(src=${loggedInUser.avatarUrl}`).avatarImg
           form(method="POST").watch-comment__add-form
             textarea(cols="30",rows="1",placeholder="공개 댓글 추가...")
             div.watch-comment__btns
