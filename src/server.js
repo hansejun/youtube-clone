@@ -8,7 +8,6 @@ import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import apiRouter from "./routers/apiRouter";
 import flash from "express-flash";
-import cors from "cors";
 
 const app = express();
 const logger = morgan("dev");
@@ -22,16 +21,11 @@ app.use(logger);
 app.use("/convert", express.static("node_modules/@ffmpeg/core/dist"));
 app.use(express.json());
 
-//app.use((req, res, next) => {
-//res.header("Cross-Origin-Embedder-Policy", "require-corp");
-//res.header("Cross-Origin-Opener-Policy", "same-origin");
-//next();
-//});
-const corsOptions = {
-  origin: "https://wetube-korea.herokuapp.com",
-  credentials: true,
-};
-app.use(cors(corsOptions));
+app.use((req, res, next) => {
+  res.header("Cross-Origin-Embedder-Policy", "require-corp");
+  res.header("Cross-Origin-Opener-Policy", "same-origin");
+  next();
+});
 
 app.use("/uploads", express.static("uploads"));
 app.use("/assets", express.static("assets"));
