@@ -13,7 +13,48 @@ mixin video(video)
       div.video-mixin__data-content
         span.video-mixin__data-content__title=video.title
         div.video-mixin__data-content__meta
-          span #{video.owner.name} 
-          span 조회수 #{video.meta.views} 회 
- 
-
+          span #{video.owner.name}
+          div 
+            span 조회수 #{video.meta.views} 회 • 
+            if (Math.floor((currentTime - video.createdAt)/1000/60)<60)
+              span #{Math.floor((currentTime - video.createdAt)/1000/60)}분 전
+            else if(Math.floor((currentTime - video.createdAt)/1000/60/60)<24)
+              span #{Math.floor((currentTime - video.createdAt)/1000/60/60)}시간 전
+            else if(Math.floor((currentTime - video.createdAt)/1000/60/60/24)<30)
+              span #{Math.floor((currentTime - video.createdAt)/1000/60/60/24)}일 전
+            else if(Math.floor((currentTime - video.createdAt)/1000/60/60/24/30)<12)
+              span #{Math.floor((currentTime - video.createdAt)/1000/60/60/24/30)}개월 전
+            else 
+              span #{Math.floor((currentTime - video.createdAt)/1000/60/60/24/30/12)}년 전
+    div.hoverVideo
+      if isHeroku 
+        video.video-mixin__video(src=`${video.fileUrl}`,muted="muted")
+      else
+        video.video-mixin__video(src=`${video.fileUrl}`,muted="muted")
+      div.hoverVideo__data
+        div.hoverVideo__data-avatar
+          if isHeroku
+            img(src=`${video.owner.avatarUrl}` ,width="35",height="35").avatarImg
+          else 
+            img(src=`/${video.owner.avatarUrl}` ,width="35",height="35").avatarImg
+        div.video-mixin__data-content
+          span.video-mixin__data-content__title=video.title
+          div.video-mixin__data-content__meta
+            span #{video.owner.name}
+            div 
+              span 조회수 #{video.meta.views} 회 • 
+              if (Math.floor((currentTime - video.createdAt)/1000/60)<60)
+                span #{Math.floor((currentTime - video.createdAt)/1000/60)}분 전
+              else if(Math.floor((currentTime - video.createdAt)/1000/60/60)<24)
+                span #{Math.floor((currentTime - video.createdAt)/1000/60/60)}시간 전
+              else if(Math.floor((currentTime - video.createdAt)/1000/60/60/24)<30)
+                span #{Math.floor((currentTime - video.createdAt)/1000/60/60/24)}일 전
+              else if(Math.floor((currentTime - video.createdAt)/1000/60/60/24/30)<12)
+                span #{Math.floor((currentTime - video.createdAt)/1000/60/60/24/30)}개월 전
+              else 
+                span #{Math.floor((currentTime - video.createdAt)/1000/60/60/24/30/12)}년 전
+      div.hoverVideo-Btn
+        div
+          span 나중에 볼 영상
+        div 
+          span 목록에 추가

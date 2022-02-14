@@ -29,14 +29,14 @@
 [v] 기본이미지 구현
 [v] 기본 폰트 구현 google-font roboto
 [v] video player custom
-[] 코멘트창 구현 / enter 시 cols ++ 시킬것 / 수정 삭제 기능 추가
-[] 에러메시지 구현
+[v] 코멘트창 구현 / enter 시 cols ++ 시킬것 / 수정 삭제 기능 추가
+[v] 에러메시지 구현
 
 home
 [v] 썸네일 구현
 [v] 조회수 구현 
-[] ~시간 전 , ~분전 구현
-[] 검색창 구현
+[v] ~시간 전 , ~분전 구현
+[v] 검색창 구현
 
 watch
 [v] video list 추가
@@ -45,8 +45,7 @@ watch
 [] 공유 구현 
 [] 오프라인 저장 구현
 [] 저장으로 플레이리스트 구현
-... 클릭시 edit video / delete video 구현 
+[v] ... 클릭시 edit video / delete video 구현 
 [] 구독 구현 
 
 
-비디오 전체 시간 안나옴  타임라인 안움직임
