@@ -23,7 +23,7 @@ const addComment = (text, id, user) => {
   const avatarDiv = document.createElement("div");
   const avatarImg = document.createElement("img");
   avatarImg.className = "avatarImg";
-  avatarImg.src = "/" + user.avatarUrl;
+  avatarImg.src = user.avatarUrl;
   avatarDiv.appendChild(avatarImg);
   a.appendChild(avatarDiv);
 
@@ -193,10 +193,9 @@ const handleDelete = async (e) => {
 
 const handleKeyUp = (e) => {
   console.log(e.target.scrollHeight);
-  textarea.style.height = "auto"
+  textarea.style.height = "auto";
   textarea.style.height = `${e.target.scrollHeight}px`;
-}
-
+};
 
 textarea.addEventListener("blur", handleBlurColorChange);
 textarea.addEventListener("focus", handleFocusColorChange);
@@ -208,4 +207,4 @@ if (deleteBtns && changeBtns) {
     deleteBtns[i].addEventListener("click", handleDelete);
   }
 }
-textarea.addEventListener("keyup",handleKeyUp);
+textarea.addEventListener("keyup", handleKeyUp);
