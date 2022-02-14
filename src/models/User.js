@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   socialOnly: { type: Boolean, required: true, default: false },
   social: { type: String },
-  avatarUrl: { type: String, default: "/uploads/avatars/basic" },
+  avatarUrl: { type: String, default: "uploads/avatars/basic" },
   videos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }],
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 });
