@@ -50,11 +50,11 @@ export const onlyLoggedOut = (req, res, next) => {
 
 export const avatarUpload = multer({
   dest: "uploads/avatars/",
-  limits: { fileSize: 3000000 },
+  limits: { fileSize: 30000000 },
   storage: isHeroku ? s3ImageUploader : undefined,
 });
 export const videoUpload = multer({
   dest: "uploads/videos/",
-  limits: { fileSize: 10000000 },
+  limits: { fileSize: 100000000 },
   storage: isHeroku ? s3VideoUploader : undefined,
 });
