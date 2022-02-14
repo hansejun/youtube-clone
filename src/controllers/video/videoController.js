@@ -30,6 +30,8 @@ export const watch = async (req, res) => {
 };
 
 export const getUploadVideo = (req, res) => {
+  res.header("Cross-Origin-Embedder-Policy", "require-corp");
+  res.header("Cross-Origin-Opener-Policy", "same-origin");
   return res.render("videos/upload", { pageTitle: "Upload" });
 };
 

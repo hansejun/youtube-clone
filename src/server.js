@@ -20,11 +20,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(logger);
 app.use("/convert", express.static("node_modules/@ffmpeg/core/dist"));
 app.use(express.json());
-app.use((req, res, next) => {
-  res.header("Cross-Origin-Embedder-Policy", "require-corp");
-  res.header("Cross-Origin-Opener-Policy", "same-origin");
-  next();
-});
+
+//app.use((req, res, next) => {
+//res.header("Cross-Origin-Embedder-Policy", "require-corp");
+//res.header("Cross-Origin-Opener-Policy", "same-origin");
+//next();
+//});
 app.use("/uploads", express.static("uploads"));
 app.use("/assets", express.static("assets"));
 // session을 MongoDB에 저장
@@ -38,11 +39,6 @@ app.use(
     }),
   })
 );
-app.use((req, res, next) => {
-  res.header("Cross-Origin-Embedder-Policy", "require-corp");
-  res.header("Cross-Origin-Opener-Policy", "same-origin");
-  next();
-});
 
 app.use(flash());
 app.use(localsMiddleware);
