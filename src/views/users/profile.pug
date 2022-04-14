@@ -2,18 +2,22 @@ extends ../base
 include ../mixins/video
 
 block content
-  if isHeroku
-    img(src=user.avatarUrl ,width="50",height="50")
-  else 
-    img(src=`/${user.avatarUrl}` ,width="50",height="50")
-  h3 Name #{user.name}
-  h3 Email #{user.email}
-  hr 
-  each video in user.videos
-    +video(video)
-  hr
-  if loggedInUser._id == user._id
-    a(href=`/users/${loggedInUser._id}/edit`) Edit Profile &rarr;
-    br
-    if !loggedInUser.socialOnly
-      a(href=`/users/${loggedInUser._id}/edit-password`) Changed Password &rarr;
+  div.profile-header
+    if isHeroku
+      img(src=user.avatarUrl ,width="50",height="50")
+    else 
+      img(src=`/${user.avatarUrl}` ,width="50",height="50")
+    h3.profile-header__name #{user.name}
+    div.profile-editBox
+      if loggedInUser._id == user._id
+        a(href=`/users/${loggedInUser._id}/edit`)
+          i.fa-solid.fa-user-pen
+          span Edit Profile
+        if !loggedInUser.socialOnly
+          a(href=`/users/${loggedInUser._id}/edit-password`)
+            i.fa-solid.fa-user-pen
+            span Changed Password
+  div.video-grid 
+    each video in user.videos
+      +video(video)
+  
