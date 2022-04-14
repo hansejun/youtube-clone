@@ -1,5 +1,5 @@
 mixin comment(comment)
-  a(href="")
+  a(href=`/users/${comment.owner._id}`)
     div
       if isHeroku
         img(src=`${comment.owner.avatarUrl}`).avatarImg
