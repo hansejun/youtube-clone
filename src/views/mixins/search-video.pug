@@ -10,7 +10,7 @@ mixin search-video(video)
             span 조회수 #{video.meta.views}회 • 1일전
             div.search-videoBox__content-owner
                 if isHeroku
-                  img(src=`/${video.owner.avatarUrl}`,width="30",height="30")
+                  img(src=`${video.owner.avatarUrl}`,width="30",height="30")
                 else
                   img(src=`/${video.owner.avatarUrl}`,width="30",height="30")
                 h4=video.owner.name
