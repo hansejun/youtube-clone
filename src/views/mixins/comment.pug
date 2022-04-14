@@ -1,7 +1,10 @@
 mixin comment(comment)
   a(href="")
     div
-      img(src=`${comment.owner.avatarUrl}`).avatarImg
+      if isHeroku
+        img(src=`${comment.owner.avatarUrl}`).avatarImg
+      else
+        img(src=`/${comment.owner.avatarUrl}`).avatarImg
   div.comment-body
     div.comment-body__user
       span.comment-body__user-owner=comment.owner.name

@@ -72,10 +72,11 @@ block content
                   span Delete Video 
       div.watch-owner
         div.watch-owner__info
-          if !video.owner.avatarUrl.startsWith("h")
-            img(src="/"+`${video.owner.avatarUrl}`).avatarImg
-          else
-            img(src=video.owner.avatarUrl).avatarImg
+          a(href=`/users/${video.owner._id}`)
+            if !video.owner.avatarUrl.startsWith("h")
+                img(src="/"+`${video.owner.avatarUrl}`).avatarImg
+            else
+                img(src=video.owner.avatarUrl).avatarImg
           div.watch-owner__info-nickname
             h3 #{video.owner.name}
             span 구독자 0명
